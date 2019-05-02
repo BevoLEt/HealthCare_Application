@@ -4,56 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".AdminMainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="414dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/view_normal_mode"
+            android:id="@+id/view_admin_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
             android:gravity="center"
-            android:text="@string/normal_mode" />
+            android:text="@string/admin_mode" />
 
         <TextView
             android:id="@+id/view_app_title"
             android:layout_width="520dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/app_title" />
 
         <Button
-            android:id="@+id/btn_start"
+            android:id="@+id/btn_dbinfo"
             android:layout_width="265dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/btn_view_start" />
+            android:text="@string/btn_view_dbinfo" />
 
         <Button
-            android:id="@+id/btn_help"
+            android:id="@+id/btn_content_manage"
             android:layout_width="265dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/btn_view_help" />
+            android:text="@string/btn_view_content_manage" />
 
         <Button
-            android:id="@+id/btn_main_conver_to_admin"
+            android:id="@+id/btn_admin_conver_to_normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="@string/convert_mode_normalToadmin" />
-
+            android:text="@string/conver_mode_adminTonormal" />
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

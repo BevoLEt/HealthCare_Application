@@ -4,21 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HelpActivity">
+    tools:context=".dbInfoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/view_normal_mode_help"
+            android:id="@+id/view_admin_mode_dbinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/normal_mode" />
+            android:text="@string/admin_mode" />
 
         <Button
             android:id="@+id/btn_back"
@@ -27,18 +25,19 @@
             android:text="@string/btn_view_back" />
 
         <TextView
-            android:id="@+id/view_help_box"
+            android:id="@+id/view_dbinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="@string/help_content" />
+            android:gravity="center"
+            android:text="@string/dbinfo_desc" />
 
         <Button
-            android:id="@+id/btn_help_convert_to_admin"
+            android:id="@+id/btn_dbinfo_convert_to_normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/convert_mode_normalToadmin" />
+            android:text="@string/conver_mode_adminTonormal" />
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

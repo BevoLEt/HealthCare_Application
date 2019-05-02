@@ -8,52 +8,55 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class AdminMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_admin_main);
         /*delete status bar*/
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
+
+
         /*check button instance*/
-        final Button btn_view_start=(Button)findViewById(R.id.btn_start);
+        final Button btn_view_dbinfo=(Button)findViewById(R.id.btn_dbinfo);
         /*make event listenr*/
-        btn_view_start.setOnClickListener(
+        btn_view_dbinfo.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
-                        Log.i("Act.btn_start","onClick");
+                        Log.i("Act.btn_info","onClick");
                         /*인텐트 생성 후 명시적 다음 액티비티 호출*/
-                        Intent intent1=new Intent(MainActivity.this,ContentListActivity.class);
+                        Intent intent1=new Intent(AdminMainActivity.this,dbInfoActivity.class);
                         startActivity(intent1);
                     }
                 }
         );
 
         /*check button instance*/
-        final Button btn_view_help=(Button)findViewById(R.id.btn_help);
+        final Button btn_view_content_manage=(Button)findViewById(R.id.btn_content_manage);
         /*make event listenr*/
-        btn_view_help.setOnClickListener(
+        btn_view_content_manage.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
-                        Log.i("Act.btn_help","onClick");
+                        Log.i("Act.btn_info","onClick");
                         /*인텐트 생성 후 명시적 다음 액티비티 호출*/
-                        Intent intent1=new Intent(MainActivity.this,HelpActivity.class);
+                        Intent intent1=new Intent(AdminMainActivity.this,ManageActivity.class);
                         startActivity(intent1);
                     }
                 }
         );
 
         /*check button instance*/
-        final Button btn_main_convert_to_admin=(Button)findViewById(R.id.btn_main_conver_to_admin);
+        final Button btn_admin_convert_to_normal=(Button)findViewById(R.id.btn_admin_conver_to_normal);
         /*make event listenr*/
-        btn_main_convert_to_admin.setOnClickListener(
+        btn_admin_convert_to_normal.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
                         Log.i("Act.btn_help","onClick");
                         /*인텐트 생성 후 명시적 다음 액티비티 호출*/
-                        Intent intent1=new Intent(MainActivity.this,AdminMainActivity.class);
+                        Intent intent1=new Intent(AdminMainActivity.this,MainActivity.class);
                         startActivity(intent1);
                     }
                 }

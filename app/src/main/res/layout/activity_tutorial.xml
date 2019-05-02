@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TutorialActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/normal_mode" />
+
+        <Button
+            android:id="@+id/btn_back_tutorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_view_back" />
+
+        <TextView
+            android:id="@+id/view_exercise_title"
+            android:layout_width="520dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:text="TextView" />
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="520dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp" />
+
+        <LinearLayout
+            android:layout_width="601dp"
+            android:layout_height="46dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/view_exercise_desc"
+                android:layout_width="420dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:text="TextView" />
+
+            <Button
+                android:id="@+id/btn_solution_start"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_solution_start" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_convert_to_admin_tutorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/convert_mode_normalToadmin" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

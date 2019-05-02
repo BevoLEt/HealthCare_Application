@@ -4,41 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HelpActivity">
+    tools:context=".ContentListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/view_normal_mode_help"
+            android:id="@+id/view_normal_mode_contentlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/normal_mode" />
 
         <Button
-            android:id="@+id/btn_back"
+            android:id="@+id/btn_back_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_view_back" />
 
-        <TextView
-            android:id="@+id/view_help_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/help_content" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_content"
+            android:layout_width="500dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:scrollbars="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <ListView
+            android:id="@+id/exercise_list"
+            android:layout_width="500dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center" />
 
         <Button
-            android:id="@+id/btn_help_convert_to_admin"
+            android:id="@+id/btn_conver_to_admin_content_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:text="@string/convert_mode_normalToadmin" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
