@@ -1,0 +1,4 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('astra-android-release-v2.0.15-232757cc1d.aar'))
+dependencies {
+}

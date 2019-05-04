@@ -25,19 +25,28 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_view_back" />
 
-        <VideoView
-            android:id="@+id/videoView2"
+        <ImageView
+            android:id="@+id/admin_cam"
             android:layout_width="520dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/admin_feedback"
+            android:layout_width="520dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:text="TextView" />
 
         <Button
             android:id="@+id/btn_record_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="2dp"
             android:text="@string/btn_record" />
 
         <Button

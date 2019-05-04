@@ -35,7 +35,7 @@ public class ManageActivity extends AppCompatActivity {
 
         /*list view dynamic creating notification is in ManageApdapter*/
         listView=findViewById(R.id.manage_list);
-        exercise_adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,ManageAdapter.exercises);
+        exercise_adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_single_choice,ManageAdapter.exercises);
         listView.setAdapter(exercise_adapter);
 
 //        /*list item click event handler*/
@@ -73,6 +73,34 @@ public class ManageActivity extends AppCompatActivity {
                 }
         );
 
+        /*check button instance*/
+        final Button btn_delete=(Button)findViewById(R.id.btn_delete_video);
+        /*make event listenr*/
+        btn_delete.setOnClickListener(
+                new View.OnClickListener(){
+                    public void onClick(View v){
+                        Log.i("Act.btn_delete_video","onClick");
+
+                        String url,exercisename;
+                        int count,checked;
+                        count=exercise_adapter.getCount();
+                        if (count > 0) {
+                            // 현재 선택된 아이템의 position 획득.
+                            checked = listView.getCheckedItemPosition();
+                            exercisename=(String)listView.getAdapter().getItem(checked);
+                            url= url_name+":"+port_name+"/HealthCare/delete_rgb_bodydata";
+                            Log.d("check url",url);
+                            ContentValues cvalue=new ContentValues();
+                            cvalue.put("exercisename",exercisename);
+                            // AsyncTask를 통해 HttpURLConnection 수행.
+                            ManageActivity.NetworkTask2 networkTask = new ManageActivity.NetworkTask2(url, cvalue);
+                            networkTask.execute();
+                        }
+
+
+                    }
+                }
+        );
         /*check button instance*/
         final Button btn_convert_to_admin_list=(Button)findViewById(R.id.btn_convert_to_admin_manage);
         /*make event listenr*/
@@ -143,5 +171,52 @@ public class ManageActivity extends AppCompatActivity {
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
 
         }
+    }
+
+    public class NetworkTask2 extends AsyncTask<Void, Void, String> {
+        //for delete
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask2(String url, ContentValues values) {
+
+            this.url = url;
+            this.values = values;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            String result; // 요청 결과를 저장할 변수.
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.request_post(url,values); // 해당 URL로 부터 결과물을 얻어온다.
+            Log.i(result,"check result from http connection");
+            return result;
+        }
+
+        @Override
+        //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i(s,"check String in delete Execute");
+            int count,checked;
+            count=exercise_adapter.getCount();
+            if (count > 0) {
+                // 현재 선택된 아이템의 position 획득.
+                checked = listView.getCheckedItemPosition();
+                if (checked > -1 && checked < count) {
+                    // 아이템 삭제
+                    ManageAdapter.exercises.remove(checked) ;
+
+                    // listview 선택 초기화.
+                    listView.clearChoices();
+
+                    // listview 갱신.
+                    exercise_adapter.notifyDataSetChanged();
+                }
+            }
+
+        }
+
     }
 }

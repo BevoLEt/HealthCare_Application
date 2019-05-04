@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.healthcareapplication">
     <!-- network useage permission -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -13,14 +19,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".PopupRecordActivity"
-            android:theme="@style/mytheme"/>
-            <!--android:theme="@style/Theme.AppCompat.Dialog"-->
-
+        <activity
+            android:name=".PopupRecordActivity"
+            android:theme="@style/mytheme" /> <!-- android:theme="@style/Theme.AppCompat.Dialog" -->
         <activity android:name=".SolutionActivity" />
         <activity android:name=".RecordActivity" />
         <activity android:name=".ManageActivity" /> <!-- popup activity -->
-
         <activity
             android:name=".PopupContentActivity"
             android:theme="@style/mytheme" /> <!-- main activity -->

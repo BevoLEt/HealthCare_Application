@@ -47,10 +47,12 @@ public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder
                 Context context=view.getContext();
                 Log.d("exercisecall_btn","onclick : clicked exercisecall btn manage");
                 // URL 설정.
-                String url = url_name+":"+port_name+"/HealthCare/exerciselist/"+contents.get(i);
+                String url = url_name+":"+port_name+"/HealthCare/exerciselist_info";
+                ContentValues cvalue=new ContentValues();
+                cvalue.put("category",contents.get(i));
                 Log.d("check url",url);
                 // AsyncTask를 통해 HttpURLConnection 수행.
-                ManageAdapter.NetworkTask networkTask = new ManageAdapter.NetworkTask(url, null);
+                ManageAdapter.NetworkTask networkTask = new ManageAdapter.NetworkTask(url, cvalue);
                 networkTask.execute();
 
             }
@@ -60,12 +62,12 @@ public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder
     public class NetworkTask extends AsyncTask<Void, Void, String> {
 
         private String url;
-        //private ContentValues values;
+        private ContentValues values;
 
         public NetworkTask(String url, ContentValues values) {
 
             this.url = url;
-            //this.values = values;
+            this.values = values;
         }
 
         @Override
@@ -73,7 +75,7 @@ public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder
 
             String result; // 요청 결과를 저장할 변수.
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            result = requestHttpURLConnection.request_get(url); // 해당 URL로 부터 결과물을 얻어온다.
+            result = requestHttpURLConnection.request_post(url,values); // 해당 URL로 부터 결과물을 얻어온다.
 
             return result;
         }
@@ -82,11 +84,18 @@ public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder
         //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            String[] words=s.split("&");
+            String[] words=s.split(",");
             /*dont use $*/
             exercises.clear();
             for(int i=0;i<words.length;i++)
             {
+                if(i==0){
+                    words[i]=words[i].substring(2,words[i].length()-1);
+                }else if(i==words.length-1){
+                    words[i]=words[i].substring(1,words[i].length()-2);
+                }else{
+                    words[i]=words[i].substring(1,words[i].length()-1);
+                }
                 Log.i(words[i],"data");
                 exercises.add(words[i]);
             }

@@ -110,6 +110,8 @@ public class ContentListActivity extends AppCompatActivity {
         intent.putExtra("exercise_desc",exercise_info.get(2));
         intent.putExtra("image_title",exercise_info.get(3));
         intent.putExtra("video_title",exercise_info.get(4));
+        intent.putExtra("body_title",exercise_info.get(5));
+        intent.putExtra("rgb_title",exercise_info.get(6));
         startActivity(intent);
     }
 
@@ -178,15 +180,22 @@ public class ContentListActivity extends AppCompatActivity {
             super.onPostExecute(s);
             Log.i(s,"check string s");
             String[] words=s.split(",");
+
             exercise_info.clear();
-            /*dont use $*/
-            int i;
-            for(i=0;i<words.length;i++)
+            for(int i=0;i<words.length;i++)
             {
+                if(i==0){
+                    words[i]=words[i].substring(2,words[i].length()-1);
+                }else if(i==words.length-1){
+                    words[i]=words[i].substring(1,words[i].length()-2);
+                }else{
+                    words[i]=words[i].substring(1,words[i].length()-1);
+                }
                 Log.i(words[i],"data");
                 exercise_info.add(words[i]);
             }
             Log.i(exercise_info.toString(),"check its size");
+
             init2();
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
 

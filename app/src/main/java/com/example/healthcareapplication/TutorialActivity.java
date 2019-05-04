@@ -28,6 +28,8 @@ public class TutorialActivity extends AppCompatActivity {
         final String exercise_desc=intent.getStringExtra("exercise_desc");
         final String image_title=intent.getStringExtra("image_title");
         final String video_title=intent.getStringExtra("video_title");
+        final String body_title=intent.getStringExtra("body_title");
+        final String rgb_title=intent.getStringExtra("rgb_title");
 
         exericse_title = (TextView) findViewById(R.id.view_exercise_title);
         exericse_title.setText(exercise_name);
@@ -50,6 +52,8 @@ public class TutorialActivity extends AppCompatActivity {
                         intent1.putExtra("exercise_desc",exercise_desc);
                         intent1.putExtra("image_title",image_title);
                         intent1.putExtra("video_title",video_title);
+                        intent1.putExtra("body_title",body_title);
+                        intent1.putExtra("rgb_title",rgb_title);
                         startActivity(intent1);
                         //finish();
                     }

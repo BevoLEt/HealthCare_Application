@@ -39,13 +39,15 @@
         <ListView
             android:id="@+id/exercise_list"
             android:layout_width="500dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center" />
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp" />
 
         <Button
             android:id="@+id/btn_conver_to_admin_content_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:text="@string/convert_mode_normalToadmin" />
 
     </LinearLayout>
