@@ -76,7 +76,21 @@ public class RecordActivity extends AppCompatActivity {
                     public void onClick(View v){
                         if(count==0) {
                             //record start
-                            ++count;
+                            thread_stop = false;
+
+                            feedbackStr = "카메라 셋팅 중";
+                            textHandler.sendMessage(textHandler.obtainMessage());
+
+                            // Executor class
+                            ex = new Executor(){
+                                @Override
+                                public void execute(@NonNull Runnable r) {
+                                    new Thread (r).start();
+                                }
+                            };
+                            // Execute the Runnable object
+                            ex.execute(new RecordActivity.UpdateRunnable());
+                            count=1;
                         }
                         else if(count==1)
                         {
@@ -122,24 +136,9 @@ public class RecordActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
 
-        feedbackStr = "카메라 셋팅 중";
-        textHandler.sendMessage(textHandler.obtainMessage());
-
         aac = new AstraAndroidContext(getApplicationContext());
         aac.initialize();
         aac.openAllDevices();
-
-        thread_stop = false;
-
-        // Executor class
-        ex = new Executor(){
-            @Override
-            public void execute(@NonNull Runnable r) {
-                new Thread (r).start();
-            }
-        };
-        // Execute the Runnable object
-        ex.execute(new RecordActivity.UpdateRunnable());
     }
 
     @Override
@@ -147,6 +146,7 @@ public class RecordActivity extends AppCompatActivity {
         super.onPause();
 
         thread_stop = true;
+        aac.terminate();
     }
 
     /* 피드백 텍스트뷰 핸들러 */
@@ -247,10 +247,11 @@ public class RecordActivity extends AppCompatActivity {
 
                 feedbackStr = "파일 저장 완료";
                 textHandler.sendMessage(textHandler.obtainMessage());
+
+                thread_stop = true;
             } catch (Throwable e) {
                 efc.getOut().println(e);
             } finally {
-                aac.terminate();
                 try {
                     efc.closeLoggingFile();
                     efc.closeBodyFile_W();
