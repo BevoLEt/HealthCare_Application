@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btn_list"
+    android:layout_width="450dp"
+    android:layout_height="45dp"
+    android:background="@mipmap/btn_bar_list"
+    android:gravity="center"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:paddingLeft="6dip"
+    android:text="Button"
+    android:textColor="@android:color/white"
+    android:textSize="25dp" />

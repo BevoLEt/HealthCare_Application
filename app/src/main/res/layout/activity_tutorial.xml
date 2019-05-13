@@ -4,71 +4,122 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TutorialActivity">
+    android:background="@mipmap/title_3"
+    tools:context=".view.TutorialActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/view_normal_tutorial"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="58dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@android:color/background_light"
+        android:text="@string/normal_mode"
+        app:layout_constraintBottom_toTopOf="@+id/view_exercise_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/normal_mode" />
+    <View
+        android:id="@+id/line_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:background="@mipmap/view_mode_line"
+        app:layout_constraintTop_toTopOf="@+id/view_normal_tutorial"
+        tools:layout_editor_absoluteX="0dp" />
 
-        <Button
-            android:id="@+id/btn_back_tutorial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_view_back" />
+    <View
+        android:id="@+id/line_title_vertical"
+        android:layout_width="3dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="14dp"
+        android:background="@mipmap/vertical_line"
+        app:layout_constraintEnd_toStartOf="@+id/view_exercise_title"
+        app:layout_constraintTop_toTopOf="@+id/view_normal_tutorial" />
 
-        <TextView
-            android:id="@+id/view_exercise_title"
-            android:layout_width="520dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:text="TextView" />
+    <Button
+        android:id="@+id/btn_back_tutorial"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="@mipmap/btn_back"
+        android:textColor="@android:color/white"
+        android:text="@string/btn_view_back"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="@+id/view_normal_tutorial"
+        app:layout_constraintTop_toBottomOf="@+id/view_normal_tutorial" />
 
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="520dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp" />
+    <TextView
+        android:id="@+id/view_exercise_title"
+        android:layout_width="500dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="48dp"
+        android:text="@string/view_popup_title"
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_normal_tutorial" />
 
-        <LinearLayout
-            android:layout_width="601dp"
-            android:layout_height="46dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="600dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_solution_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/view_exercise_desc"
+        android:layout_width="600dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="12dp"
+        android:background="@mipmap/view_help_desc"
+        android:padding="7dp"
+        android:scrollbars="vertical"
+        android:text="@string/view_popup_desc"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/videoView" />
 
-            <TextView
-                android:id="@+id/view_exercise_desc"
-                android:layout_width="420dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:text="TextView" />
+    <Button
+        android:id="@+id/btn_convert_to_admin_tutorial"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@mipmap/btn_convert"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:paddingRight="30dp"
+        android:text="@string/convert_mode_normalToadmin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_solution_start"
+        app:layout_constraintVertical_bias="0.99" />
 
-            <Button
-                android:id="@+id/btn_solution_start"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_solution_start" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_convert_to_admin_tutorial"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/convert_mode_normalToadmin" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_solution_start"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="88dp"
+        android:background="@mipmap/btn_solu_full"
+        android:gravity="center"
+        android:text="@string/btn_solution_start"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toEndOf="@+id/view_exercise_desc" />
 </android.support.constraint.ConstraintLayout>

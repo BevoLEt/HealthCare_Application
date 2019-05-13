@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".PopupContentActivity">
+    android:background="#00000000"
+    tools:context=".view.PopupContentActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,15 +22,22 @@
             android:layout_width="20dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="@string/btn_goTosolution" />
+            android:background="@mipmap/btn_solu"
+            android:text="@string/btn_goTosolution"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/btn_goTo_tuto"
             android:layout_width="20dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
+            android:background="@mipmap/btn_tuto"
             android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"
             android:text="@string/btn_goTotutorial" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -4,41 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HelpActivity">
+    android:background="@mipmap/title"
+    tools:context=".view.HelpActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/view_normal_mode_help"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_height="40dp"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@android:color/background_light"
+        android:text="@string/normal_mode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/view_normal_mode_help"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/normal_mode" />
+    <View
+        android:id="@+id/line_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/view_mode_line"
+        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode_help" />
 
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_view_back" />
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/btn_back"
+        android:text="@string/btn_view_back"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="@+id/view_normal_mode_help"
+        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode_help" />
 
-        <TextView
-            android:id="@+id/view_help_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/help_content" />
+    <TextView
+        android:id="@+id/view_help_box"
+        android:layout_width="600dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="24dp"
+        android:background="@mipmap/view_help_desc"
+        android:padding="15dp"
+        android:scrollbars="vertical"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:text="@string/help_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.561"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
-        <Button
-            android:id="@+id/btn_help_convert_to_admin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/convert_mode_normalToadmin" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_help_convert_to_admin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@mipmap/btn_convert"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:paddingRight="30dp"
+        android:text="@string/convert_mode_normalToadmin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

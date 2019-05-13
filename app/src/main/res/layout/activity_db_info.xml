@@ -4,40 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".dbInfoActivity">
+    tools:context=".view.DbInfoActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/view_admin_mode_dbinfo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="@string/admin_mode"
+        app:layout_constraintBottom_toTopOf="@+id/btn_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/view_admin_mode_dbinfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/admin_mode" />
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:text="@string/btn_view_back"
+        app:layout_constraintBottom_toTopOf="@+id/view_dbinfo"
+        app:layout_constraintStart_toStartOf="@+id/view_admin_mode_dbinfo"
+        app:layout_constraintTop_toBottomOf="@+id/view_admin_mode_dbinfo" />
 
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_view_back" />
+    <TextView
+        android:id="@+id/view_dbinfo"
+        android:layout_width="780dp"
+        android:layout_height="230dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="62dp"
+        android:gravity="center"
+        android:text="@string/dbinfo_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
-        <TextView
-            android:id="@+id/view_dbinfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="@string/dbinfo_desc" />
-
-        <Button
-            android:id="@+id/btn_dbinfo_convert_to_normal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/conver_mode_adminTonormal" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_dbinfo_convert_to_normal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/conver_mode_adminTonormal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_dbinfo"
+        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

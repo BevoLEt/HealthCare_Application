@@ -4,56 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@mipmap/title"
+    tools:context=".view.MainActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/view_app_title"
+        android:layout_width="520dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@mipmap/app_title"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textSize="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode" />
+
+    <View
+        android:id="@+id/line_title"
         android:layout_width="match_parent"
-        android:layout_height="414dp"
-        android:orientation="vertical"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/view_mode_line"
+        app:layout_constraintBottom_toTopOf="@+id/view_app_title"
+        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode" />
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="265dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="65dp"
+        android:layout_marginBottom="5dp"
+        android:background="@mipmap/btn_start"
+        android:text="@string/btn_view_start"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_help"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_app_title" />
+
+    <Button
+        android:id="@+id/btn_help"
+        android:layout_width="265dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/btn_help"
+        android:text="@string/btn_view_help"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_start" />
+
+    <TextView
+        android:id="@+id/view_normal_mode"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:text="@string/normal_mode"
+        android:textSize="20dp"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_main_conver_to_admin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@mipmap/btn_convert"
+        android:paddingRight="30dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:text="@string/convert_mode_normalToadmin"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp">
-
-        <TextView
-            android:id="@+id/view_normal_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:gravity="center"
-            android:text="@string/normal_mode" />
-
-        <TextView
-            android:id="@+id/view_app_title"
-            android:layout_width="520dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="@string/app_title" />
-
-        <Button
-            android:id="@+id/btn_start"
-            android:layout_width="265dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/btn_view_start" />
-
-        <Button
-            android:id="@+id/btn_help"
-            android:layout_width="265dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/btn_view_help" />
-
-        <Button
-            android:id="@+id/btn_main_conver_to_admin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="@string/convert_mode_normalToadmin" />
-
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

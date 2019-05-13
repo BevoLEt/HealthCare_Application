@@ -4,51 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminMainActivity">
+    android:background="@android:color/black"
+    tools:context=".view.AdminMainActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/view_app_title"
+        android:layout_width="520dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="@string/app_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_admin_mode" />
+
+    <Button
+        android:id="@+id/btn_dbinfo"
+        android:layout_width="265dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="36dp"
+        android:text="@string/btn_view_dbinfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_app_title" />
+
+    <Button
+        android:id="@+id/btn_content_manage"
+        android:layout_width="265dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="@string/btn_view_content_manage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_dbinfo" />
+
+    <Button
+        android:id="@+id/btn_admin_conver_to_normal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="@string/conver_mode_adminTonormal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/view_admin_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/admin_mode" />
-
-        <TextView
-            android:id="@+id/view_app_title"
-            android:layout_width="520dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/app_title" />
-
-        <Button
-            android:id="@+id/btn_dbinfo"
-            android:layout_width="265dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/btn_view_dbinfo" />
-
-        <Button
-            android:id="@+id/btn_content_manage"
-            android:layout_width="265dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/btn_view_content_manage" />
-
-        <Button
-            android:id="@+id/btn_admin_conver_to_normal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="@string/conver_mode_adminTonormal" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/view_admin_mode"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="1dp"
+        android:gravity="center"
+        android:text="@string/admin_mode"
+        app:layout_constraintBottom_toTopOf="@+id/view_app_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

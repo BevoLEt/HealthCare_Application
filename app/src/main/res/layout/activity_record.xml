@@ -4,55 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecordActivity">
+    tools:context=".camera.RecordActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/view_admin_mode_record"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="321dp"
+        android:gravity="center"
+        android:text="@string/admin_mode"
+        app:layout_constraintBottom_toTopOf="@+id/admin_feedback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/view_admin_mode_record"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/admin_mode" />
+    <Button
+        android:id="@+id/btn_back_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_view_back"
+        app:layout_constraintStart_toStartOf="@+id/view_admin_mode_record"
+        app:layout_constraintTop_toBottomOf="@+id/view_admin_mode_record" />
 
-        <Button
-            android:id="@+id/btn_back_record"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_view_back" />
+    <ImageView
+        android:id="@+id/admin_cam"
+        android:layout_width="700dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/admin_feedback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back_record"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@color/colorPrimary" />
 
-        <ImageView
-            android:id="@+id/admin_cam"
-            android:layout_width="520dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            app:srcCompat="@color/colorPrimary" />
+    <TextView
+        android:id="@+id/admin_feedback"
+        android:layout_width="560dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_record_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_admin_mode_record" />
 
-        <TextView
-            android:id="@+id/admin_feedback"
-            android:layout_width="520dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:text="TextView" />
+    <Button
+        android:id="@+id/btn_record_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"
+        android:text="@string/btn_record"
+        app:layout_constraintBottom_toTopOf="@+id/btn_convert_to_normal_record"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admin_feedback" />
 
-        <Button
-            android:id="@+id/btn_record_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="2dp"
-            android:text="@string/btn_record" />
-
-        <Button
-            android:id="@+id/btn_convert_to_normal_record"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/conver_mode_adminTonormal" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_convert_to_normal_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/conver_mode_adminTonormal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_record_start" />
 </android.support.constraint.ConstraintLayout>

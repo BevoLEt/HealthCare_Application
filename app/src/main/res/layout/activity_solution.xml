@@ -4,97 +4,138 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SolutionActivity">
+    android:background="@mipmap/title_2"
+    tools:context=".camera.SolutionActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/view_normal_mode_solution"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@android:color/background_light"
+        android:text="@string/normal_mode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/view_normal_mode_solution"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/normal_mode" />
+    <View
+        android:id="@+id/line_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/view_mode_line"
+        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode_solution" />
 
-        <Button
-            android:id="@+id/btn_back_solution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_view_back" />
+    <View
+        android:id="@+id/line_title_vertical"
+        android:layout_width="3dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+        android:background="@mipmap/vertical_line"
+        app:layout_constraintEnd_toStartOf="@+id/view_exercise_title_solution"
+        app:layout_constraintTop_toTopOf="@+id/view_normal_mode_solution" />
 
-        <LinearLayout
-            android:layout_width="520dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
+    <Button
+        android:id="@+id/btn_back_solution"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="@mipmap/btn_back"
+        android:textColor="@android:color/white"
+        android:layout_marginStart="20dp"
+        android:text="@string/btn_view_back"
+        app:layout_constraintStart_toStartOf="@+id/view_normal_mode_solution"
+        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode_solution" />
 
-            <TextView
-                android:id="@+id/view_exercise_title_solution"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:text="운동 제목" />
+    <TextView
+        android:id="@+id/view_exercise_title_solution"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="56dp"
+        android:text="@string/view_popup_title"
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toStartOf="@+id/progressbar_video"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <ProgressBar
-                android:id="@+id/progressbar_video"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+    <ProgressBar
+        android:id="@+id/progressbar_video"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="500dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="@+id/view_exercise_title_solution"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-        </LinearLayout>
+    <TextView
+        android:id="@+id/user_feedback"
+        android:layout_width="775dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="72dp"
+        android:layout_weight="1"
+        android:background="@mipmap/view_help_desc"
+        android:padding="15dp"
+        android:scrollbars="vertical"
+        android:text="@string/score_example"
+        android:textColor="@android:color/white"
+        android:textSize="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <LinearLayout
-            android:layout_width="670dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
+    <ListView
+        android:id="@+id/exercise_list_sol"
+        android:layout_width="100dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <ListView
-                android:id="@+id/exercise_list_sol"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                 />
+    <ImageView
+        android:id="@+id/user_video"
+        android:layout_width="380dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="5dp"
+        android:contentDescription="@string/solution_view_desc"
+        app:layout_constraintEnd_toStartOf="@+id/user_cam"
+        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintStart_toEndOf="@+id/exercise_list_sol"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorPrimary" />
 
-            <ImageView
-                android:id="@+id/user_video"
-                android:layout_width="280dp"
-                android:layout_height="200dp"
-                android:layout_marginRight="5dp"
-                app:srcCompat="@color/colorPrimary" />
+    <ImageView
+        android:id="@+id/user_cam"
+        android:layout_width="380dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="36dp"
+        android:contentDescription="@string/user_view_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorPrimary" />
 
-            <ImageView
-                android:id="@+id/user_cam"
-                android:layout_width="280dp"
-                android:layout_height="200dp"
-                app:srcCompat="@color/colorPrimary" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/user_feedback"
-            android:layout_width="560dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/score_example" />
-
-        <Button
-            android:id="@+id/btn_convert_admin_solution"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/convert_mode_normalToadmin" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_convert_admin_solution"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@mipmap/btn_convert"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:paddingRight="30dp"
+        android:text="@string/convert_mode_normalToadmin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

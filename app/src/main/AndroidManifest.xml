@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.healthcareapplication">
+    package="com.coders.healthcareapplication">
     <!-- network useage permission -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -18,22 +19,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
         <activity
-            android:name=".PopupRecordActivity"
+            android:name=".view.PopupRecordActivity"
             android:theme="@style/mytheme" /> <!-- android:theme="@style/Theme.AppCompat.Dialog" -->
-        <activity android:name=".SolutionActivity" />
-        <activity android:name=".RecordActivity" />
-        <activity android:name=".ManageActivity" /> <!-- popup activity -->
+        <activity android:name=".camera.SolutionActivity" />
+        <activity android:name=".camera.RecordActivity" />
+        <activity android:name=".view.ManageActivity" /> <!-- popup activity -->
         <activity
-            android:name=".PopupContentActivity"
-            android:theme="@style/mytheme" /> <!-- main activity -->
-        <activity android:name=".TutorialActivity" />
-        <activity android:name=".ContentListActivity" />
-        <activity android:name=".dbInfoActivity" />
-        <activity android:name=".AdminMainActivity" />
-        <activity android:name=".HelpActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".view.PopupContentActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/> <!--@style/mytheme-->
+        <activity android:name=".view.TutorialActivity" />
+        <activity android:name=".view.ContentListActivity" />
+        <activity android:name=".view.DbInfoActivity" />
+        <activity android:name=".view.AdminMainActivity" />
+        <activity android:name=".view.HelpActivity" />
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
