@@ -19,6 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".view.PopupSolutionActivity"
+            android:theme="@style/PopupSolutionTheme"/>
         <activity
             android:name=".view.PopupRecordActivity"
             android:theme="@style/mytheme" /> <!-- android:theme="@style/Theme.AppCompat.Dialog" -->
@@ -27,7 +29,7 @@
         <activity android:name=".view.ManageActivity" /> <!-- popup activity -->
         <activity
             android:name=".view.PopupContentActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/> <!--@style/mytheme-->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- @style/mytheme -->
         <activity android:name=".view.TutorialActivity" />
         <activity android:name=".view.ContentListActivity" />
         <activity android:name=".view.DbInfoActivity" />

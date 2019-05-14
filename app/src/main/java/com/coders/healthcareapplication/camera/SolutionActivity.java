@@ -2,6 +2,8 @@ package com.coders.healthcareapplication.camera;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -25,13 +27,19 @@ import android.os.Message;
 import android.widget.ImageView;
 
 
+import com.coders.healthcareapplication.newtork_task.BodyRgb_Download;
+import com.coders.healthcareapplication.newtork_task.Exerciseinfo_call;
+import com.coders.healthcareapplication.view.ContentListActivity;
 import com.coders.healthcareapplication.view.PopupContentActivity;
 import com.coders.healthcareapplication.R;
 import com.coders.healthcareapplication.adapter.ContentListAdapter;
 import com.coders.healthcareapplication.newtork_task.RequestHttpURLConnection;
 import com.coders.healthcareapplication.view.AdminMainActivity;
+import com.coders.healthcareapplication.view.PopupSolutionActivity;
 import com.orbbec.astra.*;
 import com.orbbec.astra.android.AstraAndroidContext;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.Iterator;
@@ -50,6 +58,7 @@ public class SolutionActivity extends AppCompatActivity {
     static ArrayAdapter exercise_adapter;
     public ArrayList<String> exercise_info_list=new ArrayList<>();
     public ListView listView;
+    private TextView list_item;
 
     private Executor ex;
     private ImageView camView;
@@ -80,6 +89,8 @@ public class SolutionActivity extends AppCompatActivity {
     private String body_title;
     private String rgb_title;
 
+    private Button back;
+    private Button btn_convert_to_admin_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,43 +122,41 @@ public class SolutionActivity extends AppCompatActivity {
         //exercise_info_list=new ArrayList<>();
         /*list view dynamic creating notification is in ContentListApdapter*/
         listView=findViewById(R.id.exercise_list_sol);
-        //exercise_adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,ContentListAdapter.exercises);
-        exercise_adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, ContentListAdapter.exercises){
+        //exercise_adapter=new ArrayAdapter(this,R.layout.item_list_solution,ContentListAdapter.exercises);
+        //android.R.layout.simple_list_item_1
+        exercise_adapter=new ArrayAdapter(this,R.layout.item_list_solution, ContentListAdapter.exercises){
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
                 /// Get the Item from ListView
                 View view = super.getView(position, convertView, parent);
-
-                TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
+                //TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                TextView tv = (TextView) view.findViewById(R.id.btn_list_solu);
                 // Set the text size 25 dip for ListView each item
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,8);
-
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,17);
                 // Return the view
                 return view;
             }
         };
+
         listView.setAdapter(exercise_adapter);
 
         /*list item click event handler*/
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // AsyncTask를 통해 HttpURLConnection 수행.
-                String url="http://122.39.157.16:21003/HealthCare/exerciseinfo";
+                String url = "http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/HealthCare/exerciseinfo";
                 String value=ContentListAdapter.exercises.get(position);
                 ContentValues cvalue=new ContentValues();
                 cvalue.put("exercise_name",value);
                 Log.i(value,"value check");
-                SolutionActivity.NetworkTask2 networkTask2 = new SolutionActivity.NetworkTask2(url, cvalue);
+                Exerciseinfo_call networkTask2 = new Exerciseinfo_call(url, SolutionActivity.this,cvalue);
                 networkTask2.execute();
-
-
+                //list_item.invalidate();
             }
         });
 
         /*check button instance*/
-        final Button back=(Button)findViewById(R.id.btn_back_solution);
+        back=(Button)findViewById(R.id.btn_back_solution);
         /*make event listenr*/
         back.setOnClickListener(
                 new View.OnClickListener(){
@@ -158,42 +167,41 @@ public class SolutionActivity extends AppCompatActivity {
         );
 
         /*check button instance*/
-        final Button btn_convert_to_admin_list=(Button)findViewById(R.id.btn_convert_admin_solution);
+        btn_convert_to_admin_list=(Button)findViewById(R.id.btn_convert_admin_solution);
         /*make event listenr*/
         btn_convert_to_admin_list.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
                         Log.i("Act.btn_convert2Ad_List","onClick");
                         /*인텐트 생성 후 명시적 다음 액티비티 호출*/
-                        Intent intent1=new Intent(SolutionActivity.this, AdminMainActivity.class);
-                        startActivity(intent1);
+                        Intent intentToAdminMain=new Intent(SolutionActivity.this, AdminMainActivity.class);
+                        startActivity(intentToAdminMain);
                     }
                 }
         );
 
-        //exeist file check
-        File body_legacy=new File(path+"/bodyData.txt");
-        File rgb_legacy=new File(path+"/rgbData.txt");
+//        String url_body_data="http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/HealthCare/txt/"+body_title;
+//        Log.i("url",url_body_data);
+//        BodyRgb_Download networkTask_body=new BodyRgb_Download(url_body_data,"bodyData.txt",path);
+//        networkTask_body.execute();
+//
+//        String url_rgb_data="http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/HealthCare/txt/"+rgb_title;
+//        Log.i("url",url_rgb_data);
+//        BodyRgb_Download networkTask_rgb=new BodyRgb_Download(url_body_data,"rgbData.txt",path);
+//        networkTask_rgb.execute();
 
-        if(body_legacy.exists()) {
-            body_legacy.delete();
-        }
-        String url_body_data="http://122.39.157.16:21003/HealthCare/txt/"+body_title;
-        Log.i("url",url_body_data);
-        SolutionActivity.NetworkTask3 networkTask3 = new SolutionActivity.NetworkTask3(url_body_data,"bodyData.txt");
-        networkTask3.execute();
+    }
 
-        if(rgb_legacy.exists()) {
-            rgb_legacy.delete();
-        }
-        String url_rgb_data="http://122.39.157.16:21003/HealthCare/txt/"+rgb_title;
-        Log.i("url",url_rgb_data);
-        SolutionActivity.NetworkTask3 networkTask4 = new SolutionActivity.NetworkTask3(url_rgb_data,"rgbData.txt");
-        networkTask4.execute();
-
-        //taking file from server
-        Log.i("Act.btn_go2tuto","onClick");
-
+    public void putInfo(){
+        Intent intentToPopup=new Intent(getApplicationContext(), PopupSolutionActivity.class);
+        intentToPopup.putExtra("category",exercise_info_list.get(0));
+        intentToPopup.putExtra("exercisename",exercise_info_list.get(1));
+        intentToPopup.putExtra("exercise_desc",exercise_info_list.get(2));
+        intentToPopup.putExtra("image_title",exercise_info_list.get(3));
+        intentToPopup.putExtra("video_title",exercise_info_list.get(4));
+        intentToPopup.putExtra("body_title",exercise_info_list.get(5));
+        intentToPopup.putExtra("rgb_title",exercise_info_list.get(6));
+        startActivity(intentToPopup);
     }
 
     @Override
@@ -205,21 +213,21 @@ public class SolutionActivity extends AppCompatActivity {
         feedbackStr = "카메라 셋팅 중";
         textHandler.sendMessage(textHandler.obtainMessage());
 
-        aac = new AstraAndroidContext(getApplicationContext());
-        aac.initialize();
-        aac.openAllDevices();
-
-        thread_stop = false;
-
-        // Executor class
-        ex = new Executor(){
-            @Override
-            public void execute(@NonNull Runnable r) {
-                new Thread (r).start();
-            }
-        };
-        // Execute the Runnable object
-        ex.execute(new SolutionActivity.UpdateRunnable());
+//        aac = new AstraAndroidContext(getApplicationContext());
+//        aac.initialize();
+//        aac.openAllDevices();
+//
+//        thread_stop = false;
+//
+//        // Executor class
+//        ex = new Executor(){
+//            @Override
+//            public void execute(@NonNull Runnable r) {
+//                new Thread (r).start();
+//            }
+//        };
+//        // Execute the Runnable object
+//        ex.execute(new SolutionActivity.UpdateRunnable());
     }
 
     @Override
@@ -363,93 +371,6 @@ public class SolutionActivity extends AppCompatActivity {
                 } catch (Throwable e){ }
             }
         }
-    }
-
-    private void init2(){
-        Intent intent=new Intent(getApplicationContext(), PopupContentActivity.class);
-        intent.putExtra("category",exercise_info_list.get(0));
-        intent.putExtra("exercisename",exercise_info_list.get(1));
-        intent.putExtra("exercise_desc",exercise_info_list.get(2));
-        intent.putExtra("image_title",exercise_info_list.get(3));
-        intent.putExtra("video_title",exercise_info_list.get(4));
-        intent.putExtra("body_title",exercise_info_list.get(5));
-        intent.putExtra("rgb_title",exercise_info_list.get(6));
-        startActivity(intent);
-    }
-
-    public class NetworkTask2 extends AsyncTask<Void, Void, String> {
-
-        private String url;
-        private ContentValues values;
-
-        public NetworkTask2(String url, ContentValues values) {
-
-            this.url = url;
-            this.values = values;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            String result; // 요청 결과를 저장할 변수.
-            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            result = requestHttpURLConnection.request_post(url,values); // 해당 URL로 부터 결과물을 얻어온다.
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.i(s,"check string s");
-            String[] words=s.split(",");
-            exercise_info_list.clear();
-            /*dont use $*/
-            int i;
-            for(i=0;i<words.length;i++)
-            {
-                Log.i(words[i],"data");
-                exercise_info_list.add(words[i]);
-            }
-            Log.i(exercise_info_list.toString(),"check its size");
-            init2();
-            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-
-        }
-    }
-
-    public class NetworkTask3 extends AsyncTask<Void, Void, String> {
-        //start rgb data
-        private String url;
-        private String filename;
-        //private ContentValues values;
-
-        public NetworkTask3(String url,String filename) {
-
-            this.url = url;
-            this.filename=filename;
-            //this.values = values;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            //String result; // 요청 결과를 저장할 변수.
-            String result="sucess";
-            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            requestHttpURLConnection.HttpFileDownload(url,filename); // 해당 URL로 부터 결과물을 얻어온다.
-            Log.i("Download File","check result from http connection");
-            return result;
-        }
-
-        @Override
-        //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.i(s,"check String in File Download Execute");
-            //init();
-        }
-
     }
 
 }
