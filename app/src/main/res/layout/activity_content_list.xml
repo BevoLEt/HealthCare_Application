@@ -10,11 +10,11 @@
     <TextView
         android:id="@+id/view_normal_mode_contentlist"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:textSize="20dp"
-        android:textColor="@android:color/background_light"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="@string/normal_mode"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,10 +23,10 @@
     <View
         android:id="@+id/line_title"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
         android:background="@mipmap/view_mode_line"
-        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode_contentlist" />
+        app:layout_constraintTop_toTopOf="@+id/view_normal_mode_contentlist"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/btn_back_content"
@@ -47,41 +47,47 @@
         android:layout_width="450dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_marginStart="252dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:scrollbars="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/btn_convert_to_admin_content_list"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/line_title"
+        app:layout_constraintVertical_bias="0.147">
 
     </android.support.v7.widget.RecyclerView>
 
     <ListView
         android:id="@+id/exercise_list"
         android:layout_width="500dp"
-        android:layout_height="250dp"
+        android:layout_height="400dp"
         android:layout_gravity="center"
         android:layout_marginTop="28dp"
-        android:dividerHeight="25dp"
+        android:layout_marginBottom="8dp"
         android:divider="#00000000"
+        android:dividerHeight="25dp"
         android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_convert_to_admin_content_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView_content" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_content"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_convert_to_admin_content_list"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:layout_marginTop="324dp"
         android:background="@mipmap/btn_convert"
         android:gravity="center"
         android:paddingRight="30dp"
-        android:textColor="@android:color/white"
         android:text="@string/convert_mode_normalToadmin"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView_content" />
+        tools:layout_editor_absoluteY="492dp" />
 
 </android.support.constraint.ConstraintLayout>

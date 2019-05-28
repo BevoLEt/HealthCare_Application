@@ -20,6 +20,7 @@ import com.coders.healthcareapplication.camera.RecordActivity;
 import com.coders.healthcareapplication.newtork_task.Categorylist_call;
 import com.coders.healthcareapplication.newtork_task.DeleteRecord_call;
 import com.coders.healthcareapplication.newtork_task.RequestHttpURLConnection;
+import com.coders.healthcareapplication.view_decoration.RecyclerDecoration;
 
 import java.util.ArrayList;
 
@@ -28,12 +29,17 @@ public class ManageActivity extends AppCompatActivity {
     public static final String TAG="ContentListActivity";
     public ArrayList<String> contents=new ArrayList<>();
     public static ArrayAdapter exercise_adapter;
+
     public ListView listView;
 
     private Button back;
     private Button btn_go_to_record;
     private Button btn_delete;
     private Button btn_convert_to_admin_list;
+
+    public static RecyclerView recyclerView;
+    public static LinearLayoutManager layoutManager;
+    public ManageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +50,7 @@ public class ManageActivity extends AppCompatActivity {
 
         /*list view dynamic creating notification is in ManageApdapter*/
         listView=findViewById(R.id.manage_list);
-        exercise_adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_single_choice, ManageAdapter.exercises);
+        exercise_adapter=new ArrayAdapter(this,R.layout.item_list, ManageAdapter.exercises);
         listView.setAdapter(exercise_adapter);
 
 //        /*list item click event handler*/
@@ -133,13 +139,17 @@ public class ManageActivity extends AppCompatActivity {
         //init 호출을 통해완성
     }
 
+
+
     public void init(){
         Log.d(TAG,"init: intit recyclerview");
         Log.i(contents.toString(),"contents check");
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        RecyclerView recyclerView=findViewById(R.id.recyclerView_manage);
+        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        recyclerView=findViewById(R.id.recyclerView_manage);
+        RecyclerDecoration spaceDecoration = new RecyclerDecoration(0);
+        recyclerView.addItemDecoration(spaceDecoration);
         recyclerView.setLayoutManager(layoutManager);
-        ManageAdapter adapter=new ManageAdapter(this,contents);
+        adapter=new ManageAdapter(this,contents);
         recyclerView.setAdapter(adapter);
     }
 

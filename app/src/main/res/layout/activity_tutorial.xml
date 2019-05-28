@@ -10,23 +10,23 @@
     <TextView
         android:id="@+id/view_normal_tutorial"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="58dp"
         android:gravity="center"
-        android:textSize="20dp"
-        android:textColor="@android:color/background_light"
         android:text="@string/normal_mode"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/view_exercise_title"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/line_title"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
         android:background="@mipmap/view_mode_line"
         app:layout_constraintTop_toTopOf="@+id/view_normal_tutorial"
         tools:layout_editor_absoluteX="0dp" />
@@ -35,11 +35,15 @@
         android:id="@+id/line_title_vertical"
         android:layout_width="3dp"
         android:layout_height="40dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@mipmap/vertical_line"
-        app:layout_constraintEnd_toStartOf="@+id/view_exercise_title"
-        app:layout_constraintTop_toTopOf="@+id/view_normal_tutorial" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.171"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.184" />
 
     <Button
         android:id="@+id/btn_back_tutorial"
@@ -57,39 +61,44 @@
         android:layout_width="500dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="48dp"
         android:text="@string/view_popup_title"
         android:textColor="@android:color/white"
         android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_normal_tutorial" />
+        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintStart_toEndOf="@+id/line_title_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.182" />
 
     <VideoView
         android:id="@+id/videoView"
-        android:layout_width="600dp"
-        android:layout_height="250dp"
+        android:layout_width="650dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_solution_start"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_convert_to_admin_tutorial"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/line_title_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/view_exercise_title"
+        app:layout_constraintVertical_bias="0.088" />
 
     <TextView
         android:id="@+id/view_exercise_desc"
-        android:layout_width="600dp"
+        android:layout_width="650dp"
         android:layout_height="75dp"
         android:layout_gravity="center"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="12dp"
         android:background="@mipmap/view_help_desc"
         android:padding="7dp"
         android:scrollbars="vertical"
         android:text="@string/view_popup_desc"
         android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoView" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_convert_to_admin_tutorial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/line_title_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/videoView"
+        app:layout_constraintVertical_bias="0.114" />
 
     <Button
         android:id="@+id/btn_convert_to_admin_tutorial"
@@ -97,29 +106,27 @@
         android:layout_height="50dp"
         android:background="@mipmap/btn_convert"
         android:gravity="center"
-        android:textColor="@android:color/white"
         android:paddingRight="30dp"
         android:text="@string/convert_mode_normalToadmin"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_solution_start"
-        app:layout_constraintVertical_bias="0.99" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_solution_start"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginLeft="3dp"
         android:background="@mipmap/btn_solu_full"
         android:gravity="center"
         android:text="@string/btn_solution_start"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
-        app:layout_constraintStart_toEndOf="@+id/view_exercise_desc" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/view_exercise_desc"
+        app:layout_constraintTop_toBottomOf="@+id/videoView"
+        app:layout_constraintVertical_bias="0.076" />
 </android.support.constraint.ConstraintLayout>

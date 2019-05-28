@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="#00000000"
     tools:context=".view.PopupRecordActivity">
 
     <LinearLayout
@@ -47,12 +48,14 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginRight="5dp"
                 android:gravity="center" />
 
             <Spinner
                 android:id="@+id/spinner_exerciselist"
-                android:layout_width="150dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -64,21 +67,30 @@
 
             <Button
                 android:id="@+id/btn_save"
-                android:layout_width="20dp"
-                android:layout_height="40dp"
+                android:layout_width="15dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
+                android:background="@mipmap/btn_solu"
                 android:gravity="center"
-                android:text="@string/btn_view_save" />
+                android:text="@string/btn_view_save"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/btn_cancel"
-                android:layout_width="20dp"
-                android:layout_height="40dp"
+                android:layout_width="15dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
+                android:background="@mipmap/btn_tuto"
                 android:gravity="center"
-                android:text="@string/btn_view_cancel" />
+                android:text="@string/btn_view_cancel"
+                android:textColor="#7fffd4" />
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -4,17 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/title_3"
     tools:context=".camera.RecordActivity">
+
+    <View
+        android:id="@+id/line_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/view_mode_line"
+        app:layout_constraintTop_toTopOf="@+id/view_admin_mode_record"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/view_admin_mode_record"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="321dp"
         android:gravity="center"
         android:text="@string/admin_mode"
-        app:layout_constraintBottom_toTopOf="@+id/admin_feedback"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,19 +31,22 @@
 
     <Button
         android:id="@+id/btn_back_record"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="50dp"
+        android:background="@mipmap/btn_back"
+        android:textColor="@android:color/white"
         android:text="@string/btn_view_back"
         app:layout_constraintStart_toStartOf="@+id/view_admin_mode_record"
         app:layout_constraintTop_toBottomOf="@+id/view_admin_mode_record" />
 
-    <ImageView
+    <SurfaceView
         android:id="@+id/admin_cam"
-        android:layout_width="700dp"
+        android:layout_width="650dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/admin_feedback"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_back_record"
@@ -46,33 +58,41 @@
         android:layout_width="560dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_record_start"
+        android:background="@mipmap/view_help_desc"
+        android:padding="7dp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_admin_mode_record" />
+        app:layout_constraintTop_toBottomOf="@+id/admin_cam"
+        app:layout_constraintVertical_bias="0.118" />
 
     <Button
         android:id="@+id/btn_record_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="32dp"
+        android:background="@mipmap/btn_solu_full"
+        android:gravity="center"
         android:text="@string/btn_record"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btn_convert_to_normal_record"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_feedback" />
+        app:layout_constraintTop_toBottomOf="@+id/admin_feedback"
+        app:layout_constraintVertical_bias="0.526" />
 
     <Button
         android:id="@+id/btn_convert_to_normal_record"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:background="@mipmap/btn_convert"
+        android:gravity="center"
+        android:paddingRight="30dp"
         android:text="@string/conver_mode_adminTonormal"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_record_start" />
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

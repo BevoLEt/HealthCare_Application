@@ -1,5 +1,6 @@
 package com.coders.healthcareapplication.camera;
 
+
 import android.os.Environment;
 
 import java.io.BufferedReader;
@@ -50,8 +51,8 @@ public class ExerFileController {
     }
 
     public ExerFileController() {
-        bodyFile = new File(Environment.getExternalStorageDirectory(), "bodyData.txt"); //body skeleton real skeletpnbo
-        file = new File(Environment.getExternalStorageDirectory(), "External.txt"); //log
+        bodyFile = new File(Environment.getExternalStorageDirectory(), "bodyData.txt");
+        file = new File(Environment.getExternalStorageDirectory(), "External.txt");
         rgbin = null;
         rgbout = null;
     }
@@ -85,7 +86,7 @@ public class ExerFileController {
     }
 
     public void openRGBFile_W() throws FileNotFoundException {
-        rgbout = new FileOutputStream(Environment.getExternalStorageDirectory() + "/rgbData.txt"); //video data bytecode
+        rgbout = new FileOutputStream(Environment.getExternalStorageDirectory() + "/rgbData.txt");
     }
 
     public void closeRGBFile_W() throws IOException {

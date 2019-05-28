@@ -1,6 +1,7 @@
 package com.coders.healthcareapplication.view;
 
 import android.content.ContentValues;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coders.healthcareapplication.R;
@@ -71,7 +73,7 @@ public class PopupRecordActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-
+                ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
                 String url = "http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/HealthCare/exerciselist_info/";
                 ContentValues cvalue=new ContentValues();
                 cvalue.put("category",cateogry_list.get(position));
@@ -79,6 +81,19 @@ public class PopupRecordActivity extends AppCompatActivity {
                 // AsyncTask를 통해 HttpURLConnection 수행.
                 Exerciselist_call networkTask = new Exerciselist_call(url,PopupRecordActivity.this, cvalue);
                 networkTask.execute();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent){
+
+            }
+        });
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
             }
 
             @Override
@@ -108,9 +123,10 @@ public class PopupRecordActivity extends AppCompatActivity {
                             cvalue.put("exercise_name",exercise_title);
                             cvalue.put("body_title",file_title+"_bodyData.txt");
                             cvalue.put("rgb_title",file_title+"_rgbData.txt");
+                            cvalue.put("mp4_title",file_title+"_video.mp4");
                             Log.d("check url",url);
                             // AsyncTask를 통해 HttpURLConnection 수행.
-                            BodyRgbTitle_Upload networkTask = new BodyRgbTitle_Upload(url, cvalue,path,file_title);
+                            BodyRgbTitle_Upload networkTask = new BodyRgbTitle_Upload(url, cvalue,file_title,path);
                             networkTask.execute();
                             finish();
                         }

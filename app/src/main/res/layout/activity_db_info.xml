@@ -4,26 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/title"
     tools:context=".view.DbInfoActivity">
 
     <TextView
         android:id="@+id/view_admin_mode_dbinfo"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="@string/admin_mode"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/line_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/view_mode_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_admin_mode_dbinfo" />
+
     <Button
         android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/btn_view_back"
+        android:textColor="@android:color/white"
+        android:background="@mipmap/btn_back"
         app:layout_constraintBottom_toTopOf="@+id/view_dbinfo"
         app:layout_constraintStart_toStartOf="@+id/view_admin_mode_dbinfo"
         app:layout_constraintTop_toBottomOf="@+id/view_admin_mode_dbinfo" />
@@ -36,7 +50,11 @@
         android:layout_marginStart="62dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="62dp"
+        android:background="@mipmap/view_help_desc"
+        android:padding="15dp"
         android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
         android:text="@string/dbinfo_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.464"
@@ -45,14 +63,13 @@
 
     <Button
         android:id="@+id/btn_dbinfo_convert_to_normal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@mipmap/btn_convert"
+        android:paddingRight="30dp"
         android:text="@string/conver_mode_adminTonormal"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_dbinfo"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -22,34 +22,41 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode" />
+        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/line_title"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@mipmap/view_mode_line"
         app:layout_constraintBottom_toTopOf="@+id/view_app_title"
-        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_normal_mode"
+        app:layout_constraintVertical_bias="0.018" />
 
     <Button
         android:id="@+id/btn_start"
         android:layout_width="265dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@mipmap/btn_start"
+        android:paddingLeft="30dp"
         android:text="@string/btn_view_start"
         android:textColor="@android:color/white"
-        android:paddingLeft="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_help"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_main_conver_to_admin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_app_title" />
+        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode"
+        app:layout_constraintVertical_bias="0.596" />
 
     <Button
         android:id="@+id/btn_help"
@@ -57,23 +64,26 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="8dp"
         android:background="@mipmap/btn_help"
+        android:paddingLeft="28dp"
         android:text="@string/btn_view_help"
         android:textColor="@android:color/white"
-        android:paddingLeft="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_main_conver_to_admin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_start" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_start"
+        app:layout_constraintVertical_bias="0.047" />
 
     <TextView
         android:id="@+id/view_normal_mode"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="top"
         android:gravity="center"
         android:text="@string/normal_mode"
-        android:textSize="20dp"
         android:textColor="@android:color/background_light"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,10 +95,10 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:background="@mipmap/btn_convert"
-        android:paddingRight="30dp"
         android:gravity="center"
-        android:textColor="@android:color/white"
+        android:paddingRight="30dp"
         android:text="@string/convert_mode_normalToadmin"
+        android:textColor="@android:color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

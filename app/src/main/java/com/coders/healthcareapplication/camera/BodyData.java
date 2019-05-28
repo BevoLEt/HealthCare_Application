@@ -1,28 +1,38 @@
 package com.coders.healthcareapplication.camera;
 
 import com.orbbec.astra.Body;
+import com.orbbec.astra.Joint;
+import com.orbbec.astra.JointStatus;
+import com.orbbec.astra.Matrix3;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 public class BodyData {
-    private int nowFileCnt;
+    private float[][][] bodyDataArr;
+    private final static int SKELETONLENGTH = 19;
+    private final static int ORIENTATIONLENTH = 9;
+    private int FRAME;
+    private final static int COMPAREFRAMELENGTH = 6;
 
-    public int getNowFileCnt() {
-        return nowFileCnt;
-    }
-
-    public BodyData() {
-        nowFileCnt = 0;
+    public BodyData(int frame) {
+        bodyDataArr = new float[frame][SKELETONLENGTH][ORIENTATIONLENTH];
+        FRAME = frame;
     }
 
     /* 자세 데이터 쓰기 */
     public void bodyDataPrint(PrintWriter out, Body body, int cnt) {
-        out.println("a");
+        out.println("a"); // frame 시작
         out.println(Integer.toString(cnt));
         for(int i = 0; i < body.getJoints().length; i++){
-            out.println("b");
+            if(body.getJoints()[i].getStatus() == JointStatus.TRACKED){
+                out.println("b"); // joint에 대한 tracking 성공
+            }
+            else{
+                out.println("c"); // joint에 대한 tracking 실패
+            }
+            /* orientation 정보 (방향) 출력 */
             out.println(body.getJoints()[i].getType().getCode());
             out.println(body.getJoints()[i].getOrientation().getAxisX().getX());
             out.println(body.getJoints()[i].getOrientation().getAxisX().getY());
@@ -37,7 +47,7 @@ public class BodyData {
     }
 
     /* 자세 데이터 읽기 */
-    public String readBodyData(BufferedReader bufReader){
+    public String readData(BufferedReader bufReader){
         String line = null;
         try {
             line = bufReader.readLine();
@@ -47,92 +57,152 @@ public class BodyData {
         return line;
     }
 
+    /* 자세 데이터 읽기 */
+    public void bodyDataRead(BufferedReader bufReader) {
+        int nowReadingCnt = -1;
+        /* 자세 데이터를 저장할 배열 초기화 */
+        for(int i = 0; i < FRAME; i++){
+            for(int k = 0; k < SKELETONLENGTH; k++){
+                bodyDataArr[i][k][0] = -1;  // tracking이 실패한 joint에 대하여 배열의 첫 값을 -1로 표기
+            }
+        }
+
+        for(int i = 0; i < FRAME; i++){
+            /* frame 탐색 */
+            while(nowReadingCnt < i){
+                String line = readData(bufReader);
+                if (line == null) break;
+                if(line.charAt(0) == 'a'){
+                    nowReadingCnt = Integer.parseInt(readData(bufReader));
+                }
+            }
+            /* frame 읽기 */
+            if (nowReadingCnt == i){
+                int nowBodyCnt = -1;
+                boolean state = false;
+                /* 스켈레톤 읽기 */
+                for(int k = 0; k < SKELETONLENGTH; k++){
+                    /* joint 탐색 */
+                    while(nowBodyCnt < k){
+                        String line = readData(bufReader);
+                        if (line == null) break;
+                        if(line.charAt(0) == 'b' || line.charAt(0) == 'c'){
+                            nowBodyCnt = Integer.parseInt(readData(bufReader));
+                            if(line.charAt(0) == 'b'){
+                                state = true;
+                            }
+                            else{
+                                state = false;
+                            }
+                        }
+                    }
+
+                    /* joint 읽기 */
+                    if(nowBodyCnt == k){
+                        float fdata;
+                        for(int o = 0; o < 9; o++){
+                            fdata = Float.parseFloat(readData(bufReader));
+                            bodyDataArr[i][k][o] = fdata;
+                        }
+                        if(!state){
+                            bodyDataArr[i][k][0] = -1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /* cosine 유사도 계산 */
+    private float cosineSimilarity(float[] vectorA, float[] vectorB) {
+        float dotProduct = 0;
+        float normA = 0;
+        float normB = 0;
+        for (int i = 0; i < vectorA.length; i++) {
+            dotProduct += vectorA[i] * vectorB[i];
+            normA += Math.pow(vectorA[i], 2);
+            normB += Math.pow(vectorB[i], 2);
+        }
+        return dotProduct / ((float)Math.sqrt(normA) * (float)Math.sqrt(normB));
+    }
+
+    /* joint 데이터 비교 (cosine 유사도) */
+    private int jointOrientationCompare(Matrix3 userData, float[] trainerData){
+        final float CUTLINE = (float)0.75;
+
+        float[] userDataVector = new float[ORIENTATIONLENTH];
+        userDataVector[0] = userData.getAxisX().getX();
+        userDataVector[1] = userData.getAxisX().getY();
+        userDataVector[2] = userData.getAxisX().getZ();
+        userDataVector[3] = userData.getAxisY().getX();
+        userDataVector[4] = userData.getAxisY().getY();
+        userDataVector[5] = userData.getAxisY().getZ();
+        userDataVector[6] = userData.getAxisZ().getX();
+        userDataVector[7] = userData.getAxisZ().getY();
+        userDataVector[8] = userData.getAxisZ().getZ();
+
+        float cs = cosineSimilarity(userDataVector, trainerData);
+
+        if (cs >= CUTLINE){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    /* 자세 비교 */
+    private int bodyCompare(Body userData, float[][] trainerData){
+        final int[] OUTPOINT = {12, 15, 16, 17};  // 양 발, 양 손목은 자세 비교에서 제외
+
+        final int FIRSTCUTLINE = 17 - OUTPOINT.length;  // 전체 joint 중 양발, 양손목을 제외하고 2개의 joint까지 틀린 것을 허용
+        final int SECONDCUTLINE = 16 - OUTPOINT.length;  // 3개까지 허용
+        final int LASTCUTLINE = 15 - OUTPOINT.length;  // 4개까지 허용
+
+        int sum = 0;  // 총 몇 개의 joint가 일치하였나를 저장
+        for(int i = 0; i < userData.getJoints().length; i++){
+            boolean state = false;
+            for(int k = 0; k < OUTPOINT.length; k++){
+                if(i == k){
+                    state = true;
+                    break;
+                }
+            }
+            if(state){
+                continue;
+            }
+            if(userData.getJoints()[i].getStatus() == JointStatus.TRACKED && trainerData[i][0] != -1){
+                sum = sum + jointOrientationCompare(userData.getJoints()[i].getOrientation(), trainerData[i]);
+            }
+            else{
+                sum = sum + 1;
+            }
+        }
+
+        if(sum >= FIRSTCUTLINE){
+            return 100;
+        }
+        else if(sum >= SECONDCUTLINE){
+            return 70;
+        }
+        else if(sum >= LASTCUTLINE){
+            return 30;
+        }
+        else{
+            return 0;
+        }
+    }
+
     /* 자세 데이터 읽기 및 비교 */
     public int bodyDataCompare(BufferedReader bufReader, Body body, int cnt) {
         int score = 0;
-        int cmpCnt = 0;
-        int baseScore = 60;
-        float error_number = (float) 0.5;
 
-        cnt = cnt - 2;
-        if(cnt < 0){
-            return 100;
-        }
-
-        while(nowFileCnt < cnt){
-            String line = readBodyData(bufReader);
-            if (line == null) break;
-            if(line.charAt(0) == 'a'){
-                nowFileCnt = Integer.parseInt(readBodyData(bufReader));
+        for(int i = cnt; i < FRAME && i < cnt + COMPAREFRAMELENGTH; i++){
+            int temp = bodyCompare(body, bodyDataArr[i]);
+            if(score < temp){
+                score = temp;
             }
         }
 
-        if (nowFileCnt == cnt){
-            int temp = baseScore;
-            float fdata = 0;
-            int bodyType = -1;
-
-            for(int i = 0; i < body.getJoints().length; i++){
-                while(bodyType < body.getJoints()[i].getType().getCode()){
-                    String line = readBodyData(bufReader);
-                    if (line == null) break;
-                    if(line.charAt(0) == 'b'){
-                        bodyType = Integer.parseInt(readBodyData(bufReader));
-                    }
-                }
-
-                if(bodyType == body.getJoints()[i].getType().getCode()){
-                    cmpCnt++;
-
-                    fdata = Float.parseFloat(readBodyData(bufReader));
-                    if(Math.abs(fdata - body.getJoints()[i].getOrientation().getAxisX().getX()) < error_number){
-                        temp += 10;
-                    }
-                    fdata = Float.parseFloat(readBodyData(bufReader));
-                    if(Math.abs(fdata - body.getJoints()[i].getOrientation().getAxisX().getY()) < error_number){
-                        temp += 10;
-                    }
-                    fdata = Float.parseFloat(readBodyData(bufReader));
-                    if(Math.abs(fdata - body.getJoints()[i].getOrientation().getAxisX().getZ()) < error_number){
-                        temp += 10;
-                    }
-                    fdata = Float.parseFloat(readBodyData(bufReader));
-                    if(Math.abs(fdata - body.getJoints()[i].getOrientation().getAxisY().getX()) < error_number){
-                        temp += 10;
-                    }
-                    fdata = Float.parseFloat(readBodyData(bufReader));
-                    if(Math.abs(fdata - body.getJoints()[i].getOrientation().getAxisY().getY()) < error_number){
-                        temp += 10;
-                    }
-                    fdata = Float.parseFloat(readBodyData(bufReader));
-                    if(Math.abs(fdata - body.getJoints()[i].getOrientation().getAxisY().getZ()) < error_number){
-                        temp += 10;
-                    }
-                    fdata = Float.parseFloat(readBodyData(bufReader));
-                    if(Math.abs(fdata - body.getJoints()[i].getOrientation().getAxisZ().getX()) < error_number){
-                        temp += 10;
-                    }
-                    fdata = Float.parseFloat(readBodyData(bufReader));
-                    if(Math.abs(fdata - body.getJoints()[i].getOrientation().getAxisZ().getY()) < error_number){
-                        temp += 10;
-                    }
-                    fdata = Float.parseFloat(readBodyData(bufReader));
-                    if(Math.abs(fdata - body.getJoints()[i].getOrientation().getAxisZ().getZ()) < error_number){
-                        temp += 10;
-                    }
-                }
-            }
-            score += temp;
-        }
-        if(cmpCnt != 0){
-            score = score / cmpCnt;
-            if(score > 100) {
-                score = 100;
-            }
-        }
-        else{
-            score = baseScore;
-        }
         return score;
     }
 }

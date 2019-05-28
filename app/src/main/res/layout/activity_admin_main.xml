@@ -4,48 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@mipmap/title"
     tools:context=".view.AdminMainActivity">
 
     <TextView
         android:id="@+id/view_app_title"
         android:layout_width="520dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="84dp"
+        android:background="@mipmap/app_title"
         android:gravity="center"
-        android:text="@string/app_title"
+        android:textColor="@android:color/white"
+        android:textSize="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_admin_mode" />
 
+    <View
+        android:id="@+id/line_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/view_mode_line"
+        app:layout_constraintBottom_toTopOf="@+id/view_app_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_admin_mode"
+        app:layout_constraintVertical_bias="0.018" />
+
     <Button
         android:id="@+id/btn_dbinfo"
         android:layout_width="265dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/btn_bar_list"
         android:text="@string/btn_view_dbinfo"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_admin_conver_to_normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_app_title" />
+        app:layout_constraintTop_toBottomOf="@+id/view_admin_mode"
+        app:layout_constraintVertical_bias="0.599" />
 
     <Button
         android:id="@+id/btn_content_manage"
         android:layout_width="265dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/btn_bar_list"
         android:text="@string/btn_view_content_manage"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_admin_conver_to_normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_dbinfo" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_dbinfo"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_admin_conver_to_normal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@mipmap/btn_convert"
+        android:paddingRight="65dp"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
         android:text="@string/conver_mode_adminTonormal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,12 +86,15 @@
     <TextView
         android:id="@+id/view_admin_mode"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="1dp"
         android:gravity="center"
         android:text="@string/admin_mode"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/view_app_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 </android.support.constraint.ConstraintLayout>

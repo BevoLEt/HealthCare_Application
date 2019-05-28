@@ -45,6 +45,7 @@ public class Categorylist_call extends AsyncTask<Void,Void,String> {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            Log.i(s,"check String");
             String[] words=s.split("&");
             /*dont use $*/
             int i;

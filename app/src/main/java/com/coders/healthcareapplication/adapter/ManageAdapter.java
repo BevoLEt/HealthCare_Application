@@ -2,6 +2,8 @@ package com.coders.healthcareapplication.adapter;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -42,11 +44,23 @@ public class ManageAdapter extends RecyclerView.Adapter<ManageAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         Log.d(TAG,"onBindViewHolder manage: called");
-        viewHolder.btn_content_item.setText(contents.get(i));
+        final Button btn_content_item=viewHolder.btn_content_item;
+        btn_content_item.setText(contents.get(i));
         number=i;
         //버튼리스너 장착
         viewHolder.btn_content_item.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                /*text styling when clicked*/
+                int firstVisibleItemPosition = ManageActivity.layoutManager.findFirstVisibleItemPosition();
+                int lastVisibleItemPosition = ManageActivity.layoutManager.findLastVisibleItemPosition();
+                for (int index = firstVisibleItemPosition; index <= lastVisibleItemPosition; ++index) {
+                    ViewHolder holder = (ViewHolder) ManageActivity.recyclerView.findViewHolderForAdapterPosition(index);
+                    holder.btn_content_item.setTypeface(Typeface.DEFAULT);
+                    holder.btn_content_item.setPaintFlags((holder.btn_content_item.getPaintFlags())& (~Paint.UNDERLINE_TEXT_FLAG));
+                }
+                btn_content_item.setTypeface(Typeface.DEFAULT_BOLD);
+                btn_content_item.setPaintFlags(btn_content_item.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+
                 Context context=view.getContext();
                 Log.d("exercisecall_btn","onclick : clicked exercisecall btn manage");
                 // URL 설정.

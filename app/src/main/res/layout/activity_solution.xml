@@ -10,12 +10,12 @@
     <TextView
         android:id="@+id/view_normal_mode_solution"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="20dp"
-        android:textColor="@android:color/background_light"
         android:text="@string/normal_mode"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,20 +23,24 @@
     <View
         android:id="@+id/line_title"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
         android:background="@mipmap/view_mode_line"
-        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode_solution" />
+        app:layout_constraintTop_toTopOf="@+id/view_normal_mode_solution"
+        tools:layout_editor_absoluteX="0dp" />
 
     <View
         android:id="@+id/line_title_vertical"
         android:layout_width="3dp"
         android:layout_height="40dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@mipmap/vertical_line"
-        app:layout_constraintEnd_toStartOf="@+id/view_exercise_title_solution"
-        app:layout_constraintTop_toTopOf="@+id/view_normal_mode_solution" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.162" />
 
     <Button
         android:id="@+id/btn_back_solution"
@@ -45,44 +49,45 @@
         android:background="@mipmap/btn_back"
         android:textColor="@android:color/white"
         android:layout_marginStart="20dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/btn_view_back"
         app:layout_constraintStart_toStartOf="@+id/view_normal_mode_solution"
         app:layout_constraintTop_toBottomOf="@+id/view_normal_mode_solution" />
 
     <TextView
         android:id="@+id/view_exercise_title_solution"
-        android:layout_width="200dp"
+        android:layout_width="198dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="56dp"
         android:text="@string/view_popup_title"
         android:textColor="@android:color/white"
         android:textSize="25dp"
-        app:layout_constraintEnd_toStartOf="@+id/progressbar_video"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toEndOf="@+id/line_title_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159" />
 
     <ProgressBar
         android:id="@+id/progressbar_video"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="500dp"
-        android:layout_height="40dp"
+        android:layout_height="42dp"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
         android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="@+id/view_exercise_title_solution"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_convert_admin_solution"
+        app:layout_constraintEnd_toEndOf="@+id/user_cam"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/view_exercise_title_solution"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.16" />
 
     <TextView
         android:id="@+id/user_feedback"
-        android:layout_width="775dp"
+        android:layout_width="765dp"
         android:layout_height="120dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="72dp"
         android:layout_weight="1"
         android:background="@mipmap/view_help_desc"
         android:padding="15dp"
@@ -91,44 +96,53 @@
         android:textColor="@android:color/white"
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/line_title_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/user_video"
+        app:layout_constraintVertical_bias="0.075" />
 
     <ListView
         android:id="@+id/exercise_list_sol"
-        android:layout_width="120dp"
-        android:layout_height="300dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="120dp"
-        android:dividerHeight="25dp"
+        android:layout_width="121dp"
+        android:layout_height="400dp"
+        android:layout_marginEnd="8dp"
         android:divider="#00000000"
-        android:scrollbars="vertical"
+        android:dividerHeight="25dp"
         android:fastScrollEnabled="true"
         android:listSelector="@mipmap/btn_bar_list_solu_clicked"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btn_convert_admin_solution"
+        app:layout_constraintHorizontal_bias="0.019"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_back_solution"
+        app:layout_constraintVertical_bias="0.627" />
 
-    <ImageView
+    <SurfaceView
         android:id="@+id/user_video"
         android:layout_width="380dp"
         android:layout_height="200dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="8dp"
         android:contentDescription="@string/solution_view_desc"
-        app:layout_constraintEnd_toStartOf="@+id/user_cam"
-        app:layout_constraintHorizontal_bias="0.714"
-        app:layout_constraintStart_toEndOf="@+id/exercise_list_sol"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/line_title_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/view_exercise_title_solution"
+        app:layout_constraintVertical_bias="0.036"
         app:srcCompat="@color/colorPrimary" />
 
-    <ImageView
+    <SurfaceView
         android:id="@+id/user_cam"
         android:layout_width="380dp"
         android:layout_height="200dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginStart="5dp"
         android:contentDescription="@string/user_view_desc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_video"
+        app:layout_constraintTop_toBottomOf="@+id/view_exercise_title_solution"
+        app:layout_constraintVertical_bias="0.036"
         app:srcCompat="@color/colorPrimary" />
 
     <Button

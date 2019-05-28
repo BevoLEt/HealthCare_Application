@@ -4,84 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/title_2"
     tools:context=".view.ManageActivity">
 
     <TextView
         android:id="@+id/view_admin_manage"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="59dp"
         android:gravity="center"
         android:text="@string/admin_mode"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView_manage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/line_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/view_mode_line"
+        app:layout_constraintTop_toTopOf="@+id/view_admin_manage"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/btn_add_video"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="388dp"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
+        android:background="@mipmap/btn_solu"
         android:text="@string/btn_add_video"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btn_delete_video"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_manage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.433"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_admin_manage"
+        app:layout_constraintVertical_bias="0.702" />
 
     <Button
         android:id="@+id/btn_delete_video"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
+        android:background="@mipmap/btn_solu"
         android:text="@string/btn_delete_video"
-        app:layout_constraintStart_toStartOf="@+id/btn_add_video"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_manage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toEndOf="@+id/btn_add_video"
+        app:layout_constraintTop_toBottomOf="@+id/view_admin_manage"
+        app:layout_constraintVertical_bias="0.702" />
 
     <Button
         android:id="@+id/btn_back_manage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="50dp"
+        android:background="@mipmap/btn_back"
         android:text="@string/btn_view_back"
+        android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/view_admin_manage"
         app:layout_constraintTop_toBottomOf="@+id/view_admin_manage" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_manage"
-        android:layout_width="600dp"
-        android:layout_height="80dp"
+        android:layout_width="450dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="306dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_convert_to_admin_manage"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_admin_manage">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216">
 
     </android.support.v7.widget.RecyclerView>
 
     <ListView
         android:id="@+id/manage_list"
-        android:layout_width="600dp"
-        android:layout_height="250dp"
+        android:layout_width="500dp"
+        android:layout_height="401dp"
         android:layout_gravity="center"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="5dp"
         android:choiceMode="singleChoice"
+        android:divider="#00000000"
+        android:dividerHeight="25dp"
+        android:fastScrollEnabled="true"
+        android:listSelector="@mipmap/btn_bar_list_solu_clicked"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_convert_to_admin_manage"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_manage"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_convert_to_admin_manage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:background="@mipmap/btn_convert"
+        android:gravity="center"
+        android:paddingRight="30dp"
         android:text="@string/conver_mode_adminTonormal"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView_manage" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_manage"
+        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

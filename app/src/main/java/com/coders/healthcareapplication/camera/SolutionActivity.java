@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -27,6 +29,7 @@ import android.os.Message;
 import android.widget.ImageView;
 
 
+import com.coders.healthcareapplication.file_control.FileDelete;
 import com.coders.healthcareapplication.newtork_task.BodyRgb_Download;
 import com.coders.healthcareapplication.newtork_task.Exerciseinfo_call;
 import com.coders.healthcareapplication.view.ContentListActivity;
@@ -35,18 +38,21 @@ import com.coders.healthcareapplication.R;
 import com.coders.healthcareapplication.adapter.ContentListAdapter;
 import com.coders.healthcareapplication.newtork_task.RequestHttpURLConnection;
 import com.coders.healthcareapplication.view.AdminMainActivity;
+
 import com.coders.healthcareapplication.view.PopupSolutionActivity;
 import com.orbbec.astra.*;
 import com.orbbec.astra.android.AstraAndroidContext;
 
-import org.w3c.dom.Text;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
-
 import java.util.ArrayList;
+
+
+
+
 
 public class SolutionActivity extends AppCompatActivity {
 
@@ -61,11 +67,14 @@ public class SolutionActivity extends AppCompatActivity {
     private TextView list_item;
 
     private Executor ex;
-    private ImageView camView;
+    private SurfaceView camView;
+    private SurfaceHolder camHolder;
     private TextView feedbackView;
-    private ImageView videoView;
+    private SurfaceView videoView;
+    private SurfaceHolder videoHolder;
 
-    private RGBData rgbData;
+    private RGBData camData;
+    private RGBData videoData;
     private ExerFileController efc;
     private BodyData bodyData;
 
@@ -107,12 +116,15 @@ public class SolutionActivity extends AppCompatActivity {
         body_title=intent.getStringExtra("body_title");
         rgb_title=intent.getStringExtra("rgb_title");
 
-        camView = (ImageView) findViewById(R.id.user_cam);
+        camView = (SurfaceView) findViewById(R.id.user_cam);
+        camHolder = camView.getHolder();
         feedbackView = (TextView) findViewById(R.id.user_feedback);
-        videoView = (ImageView) findViewById(R.id.user_video);
+        videoView = (SurfaceView) findViewById(R.id.user_video);
+        videoHolder = videoView.getHolder();
 
-        rgbData = new RGBData();
-        bodyData = new BodyData();
+        camData = new RGBData();
+        videoData = new RGBData();
+        bodyData = new BodyData(videoData.getNUMBEROFFRAME());
         efc = new ExerFileController();
 
         exericse_title = (TextView) findViewById(R.id.view_exercise_title_solution);
@@ -179,16 +191,18 @@ public class SolutionActivity extends AppCompatActivity {
                     }
                 }
         );
+        FileDelete file_delete=new FileDelete(this.path);
+        file_delete.filedelete();
 
-//        String url_body_data="http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/HealthCare/txt/"+body_title;
-//        Log.i("url",url_body_data);
-//        BodyRgb_Download networkTask_body=new BodyRgb_Download(url_body_data,"bodyData.txt",path);
-//        networkTask_body.execute();
-//
-//        String url_rgb_data="http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/HealthCare/txt/"+rgb_title;
-//        Log.i("url",url_rgb_data);
-//        BodyRgb_Download networkTask_rgb=new BodyRgb_Download(url_body_data,"rgbData.txt",path);
-//        networkTask_rgb.execute();
+        String url_body_data="http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/HealthCare/txt/"+body_title;
+        Log.i("url",url_body_data);
+        BodyRgb_Download networkTask_body=new BodyRgb_Download(url_body_data,"bodyData.txt",path);
+        networkTask_body.execute();
+
+        String url_rgb_data="http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/HealthCare/txt/"+rgb_title;
+        Log.i("url",url_rgb_data);
+        BodyRgb_Download networkTask_rgb=new BodyRgb_Download(url_rgb_data,"rgbData.txt",path);
+        networkTask_rgb.execute();
 
     }
 
@@ -213,21 +227,21 @@ public class SolutionActivity extends AppCompatActivity {
         feedbackStr = "카메라 셋팅 중";
         textHandler.sendMessage(textHandler.obtainMessage());
 
-//        aac = new AstraAndroidContext(getApplicationContext());
-//        aac.initialize();
-//        aac.openAllDevices();
-//
-//        thread_stop = false;
-//
-//        // Executor class
-//        ex = new Executor(){
-//            @Override
-//            public void execute(@NonNull Runnable r) {
-//                new Thread (r).start();
-//            }
-//        };
-//        // Execute the Runnable object
-//        ex.execute(new SolutionActivity.UpdateRunnable());
+        aac = new AstraAndroidContext(getApplicationContext());
+        aac.initialize();
+        aac.openAllDevices();
+
+        thread_stop = false;
+
+        // Executor class
+        ex = new Executor(){
+            @Override
+            public void execute(@NonNull Runnable r) {
+                new Thread (r).start();
+            }
+        };
+        // Execute the Runnable object
+        ex.execute(new UpdateRunnable());
     }
 
     @Override
@@ -242,23 +256,6 @@ public class SolutionActivity extends AppCompatActivity {
     final Handler textHandler = new Handler(){
         public void handleMessage(Message msg){
             feedbackView.setText(feedbackStr);
-        }
-    };
-
-    /* 캠 이미지뷰 핸들러 */
-    private Bitmap camBitmap;
-    final Handler camHandler = new Handler(){
-        public void handleMessage(Message msg){
-            camView.setImageBitmap(camBitmap);
-            Drawable drawable  = null;
-        }
-    };
-
-    /* 영상 이미지뷰 핸들러 */
-    private Bitmap videoBitmap;
-    final Handler videoHandler = new Handler(){
-        public void handleMessage(Message msg){
-            videoView.setImageBitmap(videoBitmap);
         }
     };
 
@@ -281,8 +278,12 @@ public class SolutionActivity extends AppCompatActivity {
                     textHandler.sendMessage(textHandler.obtainMessage());
 
                     efc.openRGBFile_R();
-                    rgbData.readRGBData(efc.getRgbin(), efc.getOut());
+                    videoData.readRGBData(efc.getRgbin(), efc.getOut());
                     efc.closeRGBFile_R();
+
+                    efc.openBodyFile_R();
+                    bodyData.bodyDataRead(efc.getBodyReader());
+                    efc.closeBodyFile_R();
 
                     isDataLoading = true;
                 }
@@ -314,34 +315,47 @@ public class SolutionActivity extends AppCompatActivity {
                     public void onFrameReady(StreamReader reader, ReaderFrame frame) {
                         BodyFrame bodyFrame = BodyFrame.get(frame);
 
+                        Body body = null;
                         if(bodyFrame.getBodies().toString()!="[]"){
                             if(isBodyTracking == 0)  isBodyTracking = 1;
-                            Body body = bodyFrame.getBodies().iterator().next();
-                            nowScore = bodyData.bodyDataCompare(efc.getBodyReader(), body, cnt);
+                            body = bodyFrame.getBodies().iterator().next();
+                            if(isBodyTracking == 3) {
+                                nowScore = bodyData.bodyDataCompare(efc.getBodyReader(), body, cnt);
+                            }
                         }
 
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         ColorFrame colorFrame = ColorFrame.get(frame);
-                        camBitmap = rgbData.rgbToArgb(colorFrame.getByteBuffer(), colorFrame.getWidth(), colorFrame.getHeight(), efc.getOut(), 0, cnt);
-                        camHandler.sendMessage(camHandler.obtainMessage());
+                        Bitmap tempBitmap = camData.rgbToArgb(colorFrame.getByteBuffer(), colorFrame.getWidth(), colorFrame.getHeight(), efc.getOut(), isBodyTracking, cnt);
+                        camData.resetCanvas(camHolder);
+                        camData.addSkeletonToRGBData(tempBitmap, body,  efc.getOut(), cnt, isBodyTracking - 1);
+                        camHolder.unlockCanvasAndPost(camData.getRgbCanvas());
+                        tempBitmap.recycle();
                     }
                 });
 
                 while (!thread_stop) {
                     Astra.update();
                     TimeUnit.MILLISECONDS.sleep(1);
-
-                    if(isBodyTracking == 2) {
-                        cnt = cnt + 1;
-
-                        if(cnt < rgbData.getNUMBEROFFRAME()){
-                            videoBitmap = rgbData.getVideoBitmap(cnt);
-                            videoHandler.sendMessage(videoHandler.obtainMessage());
+                    if(isBodyTracking == 3) {
+                        if(cnt < videoData.getNUMBEROFFRAME()){
+                            Bitmap tempBitmap = videoData.getVideoBitmap(cnt);
+                            videoData.resetCanvas(videoHolder);
+                            videoData.addSkeletonToRGBData(tempBitmap, null,  efc.getOut(), cnt, isBodyTracking);
+                            videoHolder.unlockCanvasAndPost(videoData.getRgbCanvas());
+                            tempBitmap.recycle();
                         }
 
                         final_score += nowScore;
-                        feedbackStr = Integer.toString(cnt) + " " + Integer.toString(bodyData.getNowFileCnt()) + " : " + Integer.toString(nowScore);
+                        feedbackStr = Integer.toString(cnt) + " " + Integer.toString(cnt) + " : " + Integer.toString(nowScore);
                         textHandler.sendMessage(textHandler.obtainMessage());
-                        if (cnt == rgbData.getNUMBEROFFRAME()) {
+
+                        cnt = cnt + 1;
+                        if (cnt == videoData.getNUMBEROFFRAME()) {
                             break;
                         }
                     }
@@ -349,7 +363,7 @@ public class SolutionActivity extends AppCompatActivity {
                         feedbackStr = "신체 탐색 완료. 1초 뒤 시작";
                         textHandler.sendMessage(textHandler.obtainMessage());
                         TimeUnit.MILLISECONDS.sleep(1000);
-                        isBodyTracking = 2;
+                        isBodyTracking = 3;
                     }
                 }
 

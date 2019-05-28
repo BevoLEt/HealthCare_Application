@@ -19,8 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.PopupSolutionActivity"
-            android:theme="@style/PopupSolutionTheme"/>
+        <activity
+            android:name=".view.PopupSolutionActivity"
+            android:theme="@style/PopupSolutionTheme" />
         <activity
             android:name=".view.PopupRecordActivity"
             android:theme="@style/mytheme" /> <!-- android:theme="@style/Theme.AppCompat.Dialog" -->

@@ -27,8 +27,6 @@ public class BodyRgb_Download extends AsyncTask<Void, Void, String> {
 
         //String result; // 요청 결과를 저장할 변수.
         String result="sucess";
-        FileDelete file_delete=new FileDelete(this.path);
-        file_delete.filedelete();
         RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
         requestHttpURLConnection.HttpFileDownload(url,filename); // 해당 URL로 부터 결과물을 얻어온다.
         Log.i("Download File","check result from http connection");

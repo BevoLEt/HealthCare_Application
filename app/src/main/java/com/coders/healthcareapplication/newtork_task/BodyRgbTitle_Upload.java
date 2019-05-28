@@ -47,7 +47,9 @@ public class BodyRgbTitle_Upload extends AsyncTask<Void, Void, String> {
         File_Upload newtorkTask_body=new File_Upload(url_upload,this.path,this.file_title,"bodyData.txt");
         newtorkTask_body.execute();
         File_Upload newtorkTask_rgb=new File_Upload(url_upload,this.path,this.file_title,"rgbData.txt");
-        newtorkTask_body.execute();
+        newtorkTask_rgb.execute();
+        File_Upload newtorkTask_mp4=new File_Upload(url_upload,this.path,this.file_title,"video.mp4");
+        newtorkTask_mp4.execute();
     }
 
 }

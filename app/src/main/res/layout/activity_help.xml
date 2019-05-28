@@ -10,12 +10,12 @@
     <TextView
         android:id="@+id/view_normal_mode_help"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="top"
         android:gravity="center"
-        android:textSize="20dp"
-        android:textColor="@android:color/background_light"
         android:text="@string/normal_mode"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,10 +23,14 @@
     <View
         android:id="@+id/line_title"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="@mipmap/view_mode_line"
-        app:layout_constraintTop_toBottomOf="@+id/view_normal_mode_help" />
+        app:layout_constraintBottom_toTopOf="@+id/view_help_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_normal_mode_help"
+        app:layout_constraintVertical_bias="0.018" />
 
     <Button
         android:id="@+id/btn_back"
@@ -45,16 +49,19 @@
         android:layout_width="600dp"
         android:layout_height="320dp"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
         android:background="@mipmap/view_help_desc"
         android:padding="15dp"
         android:scrollbars="vertical"
+        android:text="@string/help_content"
         android:textColor="@android:color/white"
         android:textSize="15dp"
-        android:text="@string/help_content"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_help_convert_to_admin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.561"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_back"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_help_convert_to_admin"
@@ -62,9 +69,9 @@
         android:layout_height="50dp"
         android:background="@mipmap/btn_convert"
         android:gravity="center"
-        android:textColor="@android:color/white"
         android:paddingRight="30dp"
         android:text="@string/convert_mode_normalToadmin"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
