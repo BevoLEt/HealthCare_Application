@@ -26,7 +26,8 @@ public class PopupContentActivity extends Activity {
     private String exercise_name;
     private String exercise_desc;
     private String image_title;
-    private String video_title;
+    private String movie_title;
+    private String mp4_title;
     private String body_title;
     private String rgb_title;
     @Override
@@ -44,12 +45,15 @@ public class PopupContentActivity extends Activity {
 
 
 
+
+
         Intent intent=getIntent();
         category=intent.getStringExtra("category");
         exercise_name=intent.getStringExtra("exercisename");
         exercise_desc=intent.getStringExtra("exercise_desc");
         image_title=intent.getStringExtra("image_title");
-        video_title=intent.getStringExtra("video_title");
+        movie_title=intent.getStringExtra("movie_title");
+        mp4_title=intent.getStringExtra("mp4_title");
         body_title=intent.getStringExtra("body_title");
         rgb_title=intent.getStringExtra("rgb_title");
 
@@ -66,7 +70,8 @@ public class PopupContentActivity extends Activity {
                         intentTotuto.putExtra("exercisename",exercise_name);
                         intentTotuto.putExtra("exercise_desc",exercise_desc);
                         intentTotuto.putExtra("image_title",image_title);
-                        intentTotuto.putExtra("video_title",video_title);
+                        intentTotuto.putExtra("movie_title",movie_title);
+                        intentTotuto.putExtra("mp4_title",mp4_title);
                         intentTotuto.putExtra("body_title",body_title);
                         intentTotuto.putExtra("rgb_title",rgb_title);
                         startActivity(intentTotuto);
@@ -88,7 +93,8 @@ public class PopupContentActivity extends Activity {
                         intentTosol.putExtra("exercisename",exercise_name);
                         intentTosol.putExtra("exercise_desc",exercise_desc);
                         intentTosol.putExtra("image_title",image_title);
-                        intentTosol.putExtra("video_title",video_title);
+                        intentTosol.putExtra("movie_title",movie_title);
+                        intentTosol.putExtra("mp4_title",mp4_title);
                         intentTosol.putExtra("body_title",body_title);
                         intentTosol.putExtra("rgb_title",rgb_title);
                         startActivity(intentTosol);

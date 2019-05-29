@@ -38,8 +38,8 @@ import com.coders.healthcareapplication.R;
 import com.coders.healthcareapplication.adapter.ContentListAdapter;
 import com.coders.healthcareapplication.newtork_task.RequestHttpURLConnection;
 import com.coders.healthcareapplication.view.AdminMainActivity;
-
 import com.coders.healthcareapplication.view.PopupSolutionActivity;
+
 import com.orbbec.astra.*;
 import com.orbbec.astra.android.AstraAndroidContext;
 
@@ -94,7 +94,8 @@ public class SolutionActivity extends AppCompatActivity {
     private String exercise_name;
     private String exercise_desc;
     private String image_title;
-    private String video_title;
+    private String movie_title;
+    private String mp4_title;
     private String body_title;
     private String rgb_title;
 
@@ -112,7 +113,8 @@ public class SolutionActivity extends AppCompatActivity {
         exercise_name=intent.getStringExtra("exercisename");
         exercise_desc=intent.getStringExtra("exercise_desc");
         image_title=intent.getStringExtra("image_title");
-        video_title=intent.getStringExtra("video_title");
+        movie_title=intent.getStringExtra("movie_title");
+        mp4_title=intent.getStringExtra("mp4_title");
         body_title=intent.getStringExtra("body_title");
         rgb_title=intent.getStringExtra("rgb_title");
 
@@ -206,15 +208,17 @@ public class SolutionActivity extends AppCompatActivity {
 
     }
 
+
     public void putInfo(){
         Intent intentToPopup=new Intent(getApplicationContext(), PopupSolutionActivity.class);
         intentToPopup.putExtra("category",exercise_info_list.get(0));
         intentToPopup.putExtra("exercisename",exercise_info_list.get(1));
         intentToPopup.putExtra("exercise_desc",exercise_info_list.get(2));
         intentToPopup.putExtra("image_title",exercise_info_list.get(3));
-        intentToPopup.putExtra("video_title",exercise_info_list.get(4));
-        intentToPopup.putExtra("body_title",exercise_info_list.get(5));
-        intentToPopup.putExtra("rgb_title",exercise_info_list.get(6));
+        intentToPopup.putExtra("movie_title",exercise_info_list.get(4));
+        intentToPopup.putExtra("mp4_title",exercise_info_list.get(5));
+        intentToPopup.putExtra("body_title",exercise_info_list.get(6));
+        intentToPopup.putExtra("rgb_title",exercise_info_list.get(7));
         startActivity(intentToPopup);
     }
 

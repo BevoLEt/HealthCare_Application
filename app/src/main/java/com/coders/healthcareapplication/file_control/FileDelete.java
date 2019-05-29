@@ -25,4 +25,14 @@ public class FileDelete {
         }
         Log.i("Delete","ok");
     }
+
+    public void tempfile_delete(String name){
+        File temp_file=new File(this.path+"/"+name);
+
+        if(temp_file.exists()) {
+            temp_file.delete();
+        }
+
+        Log.i("Delete","ok");
+    }
 }

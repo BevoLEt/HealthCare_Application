@@ -41,17 +41,21 @@
         app:layout_constraintStart_toStartOf="@+id/view_admin_mode_record"
         app:layout_constraintTop_toBottomOf="@+id/view_admin_mode_record" />
 
-    <SurfaceView
-        android:id="@+id/admin_cam"
-        android:layout_width="650dp"
-        android:layout_height="250dp"
-        android:layout_gravity="center"
+
+
+        <SurfaceView
+            android:id="@+id/admin_cam"
+            android:layout_width="380dp"
+            android:layout_height="201dp"
+            android:layout_gravity="center"
+            app:srcCompat="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back_record"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@color/colorPrimary" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back_record"
+            app:layout_constraintVertical_bias="0.0" />
+
+
 
     <TextView
         android:id="@+id/admin_feedback"

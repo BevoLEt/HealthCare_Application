@@ -117,15 +117,16 @@ public class ContentListActivity extends AppCompatActivity {
     }
 
     public void renew_info(){
-        Intent intent=new Intent(getApplicationContext(), PopupContentActivity.class);
-        intent.putExtra("category",exercise_info.get(0));
-        intent.putExtra("exercisename",exercise_info.get(1));
-        intent.putExtra("exercise_desc",exercise_info.get(2));
-        intent.putExtra("image_title",exercise_info.get(3));
-        intent.putExtra("video_title",exercise_info.get(4));
-        intent.putExtra("body_title",exercise_info.get(5));
-        intent.putExtra("rgb_title",exercise_info.get(6));
-        startActivity(intent);
+        Intent intentTopopContent=new Intent(getApplicationContext(), PopupContentActivity.class);
+        intentTopopContent.putExtra("category",exercise_info.get(0));
+        intentTopopContent.putExtra("exercisename",exercise_info.get(1));
+        intentTopopContent.putExtra("exercise_desc",exercise_info.get(2));
+        intentTopopContent.putExtra("image_title",exercise_info.get(3));
+        intentTopopContent.putExtra("movie_title",exercise_info.get(4));
+        intentTopopContent.putExtra("mp4_title",exercise_info.get(5));
+        intentTopopContent.putExtra("body_title",exercise_info.get(6));
+        intentTopopContent.putExtra("rgb_title",exercise_info.get(7));
+        startActivity(intentTopopContent);
     }
 
 

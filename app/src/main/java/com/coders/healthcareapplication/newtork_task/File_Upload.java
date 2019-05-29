@@ -3,6 +3,7 @@ package com.coders.healthcareapplication.newtork_task;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.coders.healthcareapplication.file_control.FileDelete;
 import com.coders.healthcareapplication.view.PopupRecordActivity;
 
 public class File_Upload extends AsyncTask<Void, Void, String> {
@@ -39,7 +40,9 @@ public class File_Upload extends AsyncTask<Void, Void, String> {
         //start upload rgb data
         Log.i(s,"check String in PostExecute");
         Log.i(s,"check String in File upload Execute");
-
+        //file delete
+        FileDelete temp_file_delete=new FileDelete(path);
+        temp_file_delete.tempfile_delete(file_title+"_"+type);
     }
 
 }

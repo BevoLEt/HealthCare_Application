@@ -19,6 +19,10 @@ public class Rename_file {
         File filePre1=new File(path+"/rgbData.txt");
         File fileNow1=new File(path+"/"+file_title+"_rgbData.txt");
         filePre1.renameTo(fileNow1);
+
+        File filePre2=new File(path+"/video.mp4");
+        File fileNow2=new File(path+"/"+file_title+"_video.mp4");
+        filePre2.renameTo(fileNow2);
     }
 
 }

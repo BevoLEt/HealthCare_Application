@@ -208,8 +208,13 @@ public class RGBData {
         int[][] lineList = {{0, 18}, {18, 1}, {1, 2}, {2, 3}, {3, 16}, {1, 5}, {5, 6}, {6, 17}, {1, 8}, {8, 9}, {9, 10}, {10, 11}, {11, 12}, {9, 13}, {13, 14}, {14, 15},  {4, 16}, {7, 17}, {6, 17}};
         rgbCanvas.drawBitmap(bitmap, 0, 0, null);
 
-        if(body != null){
-            for(int i = 0; i < body.getJoints().length; i++){
+        if( body !=null){
+            for(int i = 0; i < SKELETONLENGTH; i++){
+                if(i >= body.getJoints().length){
+                    rgbSkeletonData[cnt][i] = new Vector2D(0, 0);
+                    continue;
+                }
+
                 if(body.getJoints()[i].getStatus() == JointStatus.TRACKED){
                     Vector2D tempVector2D = arrangeCoor(body.getJoints()[i].getDepthPosition());
                     if(mode == 2) {
@@ -223,8 +228,14 @@ public class RGBData {
                 }
             }
         }
+        else{
+            for(int i = 0; i < SKELETONLENGTH; i++){
+                rgbSkeletonData[cnt][i] = new Vector2D(0, 0);
+            }
+        }
         if(mode >= 2){
             for(int i = 0; i < lineList.length; i++){
+                efc.println(i);
                 try {
                     drawSkeletonLine(rgbSkeletonData[cnt][lineList[i][0]], rgbSkeletonData[cnt][lineList[i][1]], efc);
                 }
@@ -233,12 +244,7 @@ public class RGBData {
                 }
             }
             for(int i = 0; i < SKELETONLENGTH; i++){
-                try {
-                    drawSkeletonCircle(rgbSkeletonData[cnt][i]);
-                }
-                catch(Exception e){
-                    efc.println(e);
-                }
+                drawSkeletonCircle(rgbSkeletonData[cnt][i]);
             }
         }
     }
@@ -247,7 +253,7 @@ public class RGBData {
     public void makeVideo() throws IOException {
         File file = new File(Environment.getExternalStorageDirectory(), "video.mp4");
 
-        AndroidSequenceEncoder encoder = AndroidSequenceEncoder.createSequenceEncoder(file, 7);
+        AndroidSequenceEncoder encoder = AndroidSequenceEncoder.createSequenceEncoder(file, 6);
         for (int i = 0; i < NUMBEROFFRAME; i++) {
             nowFrame = i;
             Bitmap bitmap = getVideoBitmap(i);

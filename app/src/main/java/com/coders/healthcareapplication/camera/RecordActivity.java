@@ -155,24 +155,12 @@ public class RecordActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
 
-        feedbackStr = "카메라 셋팅 중";
-        textHandler.sendMessage(textHandler.obtainMessage());
-
         aac = new AstraAndroidContext(getApplicationContext());
         aac.initialize();
         aac.openAllDevices();
 
         thread_stop = false;
 
-        // Executor class
-        ex = new Executor(){
-            @Override
-            public void execute(@NonNull Runnable r) {
-                new Thread (r).start();
-            }
-        };
-        // Execute the Runnable object
-        ex.execute(new RecordActivity.UpdateRunnable());
     }
 
     @Override
