@@ -2,6 +2,7 @@ package com.coders.healthcareapplication.view;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +14,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.coders.healthcareapplication.newtork_task.Exerciseinfo_call;
 import com.coders.healthcareapplication.adapter.ContentListAdapter;
 import com.coders.healthcareapplication.R;
 import com.coders.healthcareapplication.newtork_task.Categorylist_call;
 import com.coders.healthcareapplication.view_decoration.RecyclerDecoration;
+import com.coders.healthcareapplication.view_decoration.RemoveStatus;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -34,16 +39,35 @@ public class ContentListActivity extends AppCompatActivity {
     private Button back;
     private Button btn_convert_to_admin_list;
 
+    private View decorView;
+    private int	uiOption;
+
+
     public static RecyclerView recyclerView;
     public static LinearLayoutManager layoutManager;
     public ContentListAdapter adapter;
+
+    public static TextView help_exercise_desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_list);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        decorView = getWindow().getDecorView();
+        uiOption = getWindow().getDecorView().getSystemUiVisibility();
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility( uiOption );
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        RemoveStatus cleanview=new RemoveStatus(this);
+//        cleanview.fullscreen();
 
+        help_exercise_desc=(TextView)findViewById(R.id.manual_content_exercise);
+        help_exercise_desc.setVisibility(View.INVISIBLE);
         exercise_info=new ArrayList<>();
         /*list view dynamic creating notification is in ContentListApdapter*/
         listView=findViewById(R.id.exercise_list);
@@ -56,6 +80,7 @@ public class ContentListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // AsyncTask를 통해 HttpURLConnection 수행.
+
                 String url = "http://"+getString(R.string.ip)+":"+getString(R.string.port)+"/HealthCare/exerciseinfo";
                 String value=ContentListAdapter.exercises.get(position);
                 ContentValues cvalue=new ContentValues();
@@ -75,8 +100,10 @@ public class ContentListActivity extends AppCompatActivity {
                 new View.OnClickListener(){
                     public void onClick(View v){
                         onBackPressed();
+                        finish();
                     }
                 }
+
         );
 
         /*check button instance*/
@@ -89,6 +116,7 @@ public class ContentListActivity extends AppCompatActivity {
                         /*인텐트 생성 후 명시적 다음 액티비티 호출*/
                         Intent intentToAdminMain=new Intent(ContentListActivity.this, AdminMainActivity.class);
                         startActivity(intentToAdminMain);
+                        finish();
                     }
                 }
         );
@@ -127,6 +155,16 @@ public class ContentListActivity extends AppCompatActivity {
         intentTopopContent.putExtra("body_title",exercise_info.get(6));
         intentTopopContent.putExtra("rgb_title",exercise_info.get(7));
         startActivity(intentTopopContent);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        // super.onWindowFocusChanged(hasFocus);
+
+        if( hasFocus ) {
+            decorView.setSystemUiVisibility( uiOption );
+        }
     }
 
 

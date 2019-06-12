@@ -61,7 +61,10 @@ public class Exerciselist_call extends AsyncTask<Void, Void, String> {
             view_info_a.exercises.clear();
             for(int i=0;i<words.length;i++)
             {
-                if(i==0){
+                if(i==0&&words.length==1){
+                    words[i]=words[i].substring(2,words[i].length()-2);
+                }
+                else if(i==0){
                     words[i]=words[i].substring(2,words[i].length()-1);
                 }else if(i==words.length-1){
                     words[i]=words[i].substring(1,words[i].length()-2);
@@ -80,7 +83,10 @@ public class Exerciselist_call extends AsyncTask<Void, Void, String> {
             view_info_b.exercises.clear();
             for(int i=0;i<words.length;i++)
             {
-                if(i==0){
+                if(i==0&&words.length==1){
+                    words[i]=words[i].substring(2,words[i].length()-2);
+                }
+                else if(i==0){
                     words[i]=words[i].substring(2,words[i].length()-1);
                 }else if(i==words.length-1){
                     words[i]=words[i].substring(1,words[i].length()-2);
@@ -100,7 +106,10 @@ public class Exerciselist_call extends AsyncTask<Void, Void, String> {
             for(int i=0;i<words.length;i++)
             {
                 Log.i(words[i],"data");
-                if(i==0){
+                if(i==0&&words.length==1){
+                    words[i]=words[i].substring(2,words[i].length()-2);
+                }
+                else if(i==0){
                     words[i]=words[i].substring(2,words[i].length()-1);
                 }else if(i==words.length-1){
                     words[i]=words[i].substring(1,words[i].length()-2);

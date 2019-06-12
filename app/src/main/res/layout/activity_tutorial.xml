@@ -7,6 +7,24 @@
     android:background="@mipmap/title_3"
     tools:context=".view.TutorialActivity">
 
+    <FrameLayout
+        android:id="@+id/videoViewWrapper"
+        android:layout_width="650dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_convert_to_admin_tutorial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/line_title_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/view_exercise_title"
+        app:layout_constraintVertical_bias="0.088">
+
+        <com.coders.healthcareapplication.view_decoration.VideoSize
+            android:id="@+id/tutoView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
     <TextView
         android:id="@+id/view_normal_tutorial"
         android:layout_width="match_parent"
@@ -71,18 +89,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.182" />
 
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="650dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_convert_to_admin_tutorial"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/line_title_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/view_exercise_title"
-        app:layout_constraintVertical_bias="0.088" />
-
     <TextView
         android:id="@+id/view_exercise_desc"
         android:layout_width="650dp"
@@ -97,7 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/line_title_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/videoView"
+        app:layout_constraintTop_toBottomOf="@+id/videoViewWrapper"
         app:layout_constraintVertical_bias="0.114" />
 
     <Button
@@ -127,6 +133,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/view_exercise_desc"
-        app:layout_constraintTop_toBottomOf="@+id/videoView"
+        app:layout_constraintTop_toBottomOf="@+id/videoViewWrapper"
         app:layout_constraintVertical_bias="0.076" />
+
+    <TextView
+        android:id="@+id/manual_tutorial"
+        android:layout_width="200dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="@string/tutorial_help"
+        android:textColor="@android:color/background_light"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/view_exercise_desc"
+        app:layout_constraintTop_toBottomOf="@+id/view_exercise_title"
+        app:layout_constraintVertical_bias="0.194" />
 </android.support.constraint.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.coders.healthcareapplication.view;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import com.coders.healthcareapplication.newtork_task.Categorylist_call;
 import com.coders.healthcareapplication.newtork_task.DeleteRecord_call;
 import com.coders.healthcareapplication.newtork_task.RequestHttpURLConnection;
 import com.coders.healthcareapplication.view_decoration.RecyclerDecoration;
+import com.coders.healthcareapplication.view_decoration.RemoveStatus;
 
 import java.util.ArrayList;
 
@@ -41,12 +43,26 @@ public class ManageActivity extends AppCompatActivity {
     public static LinearLayoutManager layoutManager;
     public ManageAdapter adapter;
 
+    private View 	decorView;
+    private int	uiOption;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        decorView = getWindow().getDecorView();
+        uiOption = getWindow().getDecorView().getSystemUiVisibility();
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility( uiOption );
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        RemoveStatus cleanview=new RemoveStatus(this);
+//        cleanview.fullscreen();
 
         /*list view dynamic creating notification is in ManageApdapter*/
         listView=findViewById(R.id.manage_list);
@@ -63,6 +79,7 @@ public class ManageActivity extends AppCompatActivity {
 //            }
 //        });
 
+
         /*check button instance*/
         back=(Button)findViewById(R.id.btn_back_manage);
         /*make event listenr*/
@@ -70,6 +87,7 @@ public class ManageActivity extends AppCompatActivity {
                 new View.OnClickListener(){
                     public void onClick(View v){
                         onBackPressed();
+                        finish();
                     }
                 }
         );
@@ -126,6 +144,7 @@ public class ManageActivity extends AppCompatActivity {
                         /*인텐트 생성 후 명시적 다음 액티비티 호출*/
                         Intent intentTomain=new Intent(ManageActivity.this, MainActivity.class);
                         startActivity(intentTomain);
+                        finish();
                     }
                 }
         );
@@ -151,6 +170,16 @@ public class ManageActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter=new ManageAdapter(this,contents);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        // super.onWindowFocusChanged(hasFocus);
+
+        if( hasFocus ) {
+            decorView.setSystemUiVisibility( uiOption );
+        }
     }
 
 }

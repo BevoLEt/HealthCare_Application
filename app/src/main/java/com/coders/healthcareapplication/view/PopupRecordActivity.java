@@ -3,6 +3,7 @@ package com.coders.healthcareapplication.view;
 import android.content.ContentValues;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.coders.healthcareapplication.newtork_task.BodyRgbTitle_Upload;
 import com.coders.healthcareapplication.newtork_task.Categorylist_call;
 import com.coders.healthcareapplication.newtork_task.Exerciselist_call;
 import com.coders.healthcareapplication.newtork_task.RequestHttpURLConnection;
+import com.coders.healthcareapplication.view_decoration.RemoveStatus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,6 +44,10 @@ public class PopupRecordActivity extends AppCompatActivity {
     private Button save;
     private Button cancel;
 
+    private View 	decorView;
+    private int	uiOption;
+
+
     private String path= Environment.getExternalStorageDirectory().getPath();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,19 @@ public class PopupRecordActivity extends AppCompatActivity {
 //        actionBar.setDisplayShowTitleEnabled(false);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_record);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        decorView = getWindow().getDecorView();
+        uiOption = getWindow().getDecorView().getSystemUiVisibility();
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility( uiOption );
+
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        RemoveStatus cleanview=new RemoveStatus(this);
+//        cleanview.fullscreen();
 
         // URL 설정.
         //http://122.39.157.16:21003/HealthCare/categorylist
@@ -155,6 +173,16 @@ public class PopupRecordActivity extends AppCompatActivity {
         );
 
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        // super.onWindowFocusChanged(hasFocus);
+
+        if( hasFocus ) {
+            decorView.setSystemUiVisibility( uiOption );
+        }
     }
 
 }

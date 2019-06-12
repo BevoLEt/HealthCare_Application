@@ -37,5 +37,10 @@
         \n\n전문가용(헬스업종)\n
         헬스장에 인공지능 디스플레이어가 설치되어 3D카메라와 대형 디스플레이어를 결합하여 웨이트트레이닝의 가이드 라인을 잡아주며 빅데이터를 통하여 운동자세, 중량, 횟수 등을 분석과 체크를 할 수 있으며, 자세가 올바르게 진행되었을 때 초록색으로 표시해주며, 힘의 균형이 맞지 않았을 때 빨간색으로 표시하여 인공지능이 알려줍니다. 기구에 압력패드를 설치하여 더욱 정교하게 균형 있는 운동을 할 수 있도록 도움을 줄 수 있습니다. 마찬가지로 기어S3와 연동되기 때문에 본인의 운동계획과 프로그램을 기록할 수 있으며, 도움 받을 수 있으며, 빅데이터 기반으로 이를 해결할 수 있습니다.</string>
     <string name="title_activity_tutorial">TutorialActivity</string>
-
+    <string name="conetent_help_category">원하는 운동 카테고리를\n클릭해보세요</string>
+    <string name="content_help_exercise">원하는 운동을 클릭 후 가이드영상과 자세 교정 서비스를 만나보세요</string>
+    <string name="tutorial_help">가이드 영상을 시청 후\n자세 교정 서비스를 만나보세요</string>
+    <string name="manage_video_add">영상 추가 버튼 클릭 후\n가이드 영상을 직접 촬영해보세요</string>
+    <string name="manage_help_category">원하는 운동 카테고리를\n클릭해보세요</string>
+    <string name="manage_video_delete">삭제하길 원하는 운동을 클릭 후\n영상 삭제 버튼을 클릭하세요</string>
 </resources>

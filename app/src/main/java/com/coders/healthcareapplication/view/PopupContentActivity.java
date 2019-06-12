@@ -3,6 +3,7 @@ package com.coders.healthcareapplication.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import com.coders.healthcareapplication.R;
 import com.coders.healthcareapplication.camera.SolutionActivity;
 import com.coders.healthcareapplication.newtork_task.RequestHttpURLConnection;
+import com.coders.healthcareapplication.view_decoration.RemoveStatus;
 
 public class PopupContentActivity extends Activity {
     private Button btn_to_tutorial;
@@ -30,19 +32,38 @@ public class PopupContentActivity extends Activity {
     private String mp4_title;
     private String body_title;
     private String rgb_title;
+
+    private View 	decorView;
+    private int	uiOption;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //setTheme(android.R.style.Theme_NoTitleBar);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        final ActionBar actionBar=getActionBar();
 //        actionBar.setDisplayShowTitleEnabled(false);
 
         setContentView(R.layout.activity_popup_content);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
 
+//        RemoveStatus cleanview=new RemoveStatus(this);
+//        cleanview.fullscreen_a();
+
+        decorView = getWindow().getDecorView();
+        uiOption = getWindow().getDecorView().getSystemUiVisibility();
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility( uiOption );
 
 
 
@@ -128,6 +149,16 @@ public class PopupContentActivity extends Activity {
         lp.width = 450;
         lp.height = 300;
         getWindowManager().updateViewLayout(view, lp);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        // super.onWindowFocusChanged(hasFocus);
+
+        if( hasFocus ) {
+            decorView.setSystemUiVisibility( uiOption );
+        }
     }
 
 }

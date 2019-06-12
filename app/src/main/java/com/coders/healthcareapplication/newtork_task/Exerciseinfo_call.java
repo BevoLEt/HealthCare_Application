@@ -66,9 +66,15 @@ public class Exerciseinfo_call extends AsyncTask<Void, Void, String> {
         if(view_info_a!=null){
             view_info_a.exercise_info_list.clear();
             /*dont use $*/
-            int i;
-            for(i=0;i<words.length;i++)
+            for(int i=0;i<words.length;i++)
             {
+                if(i==0){
+                    words[i]=words[i].substring(2,words[i].length()-1);
+                }else if(i==words.length-1){
+                    words[i]=words[i].substring(1,words[i].length()-2);
+                }else{
+                    words[i]=words[i].substring(1,words[i].length()-1);
+                }
                 Log.i(words[i],"data");
                 view_info_a.exercise_info_list.add(words[i]);
             }

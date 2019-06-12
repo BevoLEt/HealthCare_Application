@@ -2,6 +2,7 @@ package com.coders.healthcareapplication.camera;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -65,12 +67,26 @@ public class RecordActivity extends AppCompatActivity {
     private Button btn_dbinfo_convert_to_normal;
     private Button record_start;
 
+    private ProgressBar recordProgressbar;
+
+    private View decorView;
+    private int	uiOption;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        decorView = getWindow().getDecorView();
+        uiOption = getWindow().getDecorView().getSystemUiVisibility();
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility( uiOption );
 
         camView = (SurfaceView) findViewById(R.id.admin_cam);
         camHolder = camView.getHolder();
@@ -81,6 +97,7 @@ public class RecordActivity extends AppCompatActivity {
         bodyData = new BodyData(rgbData.getNUMBEROFFRAME());
         efc = new ExerFileController();
 
+        recordProgressbar = (ProgressBar)findViewById(R.id.recordProgressbar);
 
         /*check button instance*/
         record_start=(Button)findViewById(R.id.btn_record_start);
@@ -91,8 +108,8 @@ public class RecordActivity extends AppCompatActivity {
                 new View.OnClickListener(){
                     public void onClick(View v){
                         if(count==0) {
-
-                            //show_dialog();
+                            record_start.setText("녹화 중");
+                            show_dialog();
 
                             //record start
                             thread_stop = false;
@@ -113,6 +130,7 @@ public class RecordActivity extends AppCompatActivity {
                         }
                         else if(count==1)
                         {
+                            record_start.setText("녹화");
                             //record end
                             count=0;
                             Intent intentToPupRecord=new Intent(getApplicationContext(), PopupRecordActivity.class);
@@ -132,6 +150,7 @@ public class RecordActivity extends AppCompatActivity {
                 new View.OnClickListener(){
                     public void onClick(View v){
                         onBackPressed();
+                        finish();
                     }
                 }
         );
@@ -146,6 +165,7 @@ public class RecordActivity extends AppCompatActivity {
                         /*인텐트 생성 후 명시적 다음 액티비티 호출*/
                         Intent intent1=new Intent(RecordActivity.this, MainActivity.class);
                         startActivity(intent1);
+                        finish();
                     }
                 }
         );
@@ -161,6 +181,7 @@ public class RecordActivity extends AppCompatActivity {
 
         thread_stop = false;
 
+        second = 0;
     }
 
     @Override
@@ -168,6 +189,17 @@ public class RecordActivity extends AppCompatActivity {
         super.onPause();
 
         thread_stop = true;
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        // super.onWindowFocusChanged(hasFocus);
+
+        if( hasFocus ) {
+            decorView.setSystemUiVisibility( uiOption );
+        }
     }
 
     void show_dialog()
@@ -202,6 +234,14 @@ public class RecordActivity extends AppCompatActivity {
         }
     };
 
+    /* 프로그래스바 핸들러 */
+    private int recordProgressPercent;
+    final Handler recordProgressHandler = new Handler(){
+        public void handleMessage(Message msg){
+            recordProgressbar.setProgress(recordProgressPercent);
+        }
+    };
+
     /* 실제 구동 소스 코드 */
     private class UpdateRunnable implements Runnable {
         int cnt = 0;
@@ -211,7 +251,8 @@ public class RecordActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                TimeUnit.MILLISECONDS.sleep(3000);
+                while(second == 0);
+                rgbData.setNUMBEROFFRAME(second);
 
                 feedbackStr = "사용자의 신체를 탐색 중 (신체 탐색이 완료되고 1초 뒤부터 자세 촬영 시작)";
                 textHandler.sendMessage(textHandler.obtainMessage());
@@ -229,7 +270,7 @@ public class RecordActivity extends AppCompatActivity {
                     ImageStreamMode ism = (ImageStreamMode)ismi.next();
                     ismi.remove();
                     colorStream.setMode(ism);
-                    if(colorStream.getMode().getFormat().getCode()==PixelFormat.YUVY.getCode() && colorStream.getMode().getHeight() == 480 && colorStream.getMode().getWidth() == 640){
+                    if(colorStream.getMode().getFormat().getCode()== PixelFormat.YUVY.getCode() && colorStream.getMode().getHeight() == 480 && colorStream.getMode().getWidth() == 640){
                         break;
                     }
                 }
@@ -251,11 +292,11 @@ public class RecordActivity extends AppCompatActivity {
                             }
                         }
 
-                        try {
-                            TimeUnit.MILLISECONDS.sleep(1);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        //try {
+                        //    TimeUnit.MILLISECONDS.sleep(1);
+                        //} catch (InterruptedException e) {
+                        //    e.printStackTrace();
+                        //}
                         ColorFrame colorFrame = ColorFrame.get(frame);
                         Bitmap tempBitmap = rgbData.rgbToArgb(colorFrame.getByteBuffer(), colorFrame.getWidth(), colorFrame.getHeight(), efc.getOut(), isBodyTracking, cnt);
                         rgbData.resetCanvas(camHolder);
@@ -265,16 +306,14 @@ public class RecordActivity extends AppCompatActivity {
                     }
                 });
 
-                long start = System.currentTimeMillis();
-
                 while (!thread_stop) {
                     Astra.update();
                     TimeUnit.MILLISECONDS.sleep(1);
                     if(isBodyTracking == 2){
-                        feedbackStr = "Frame : " + Integer.toString(cnt);
-                        textHandler.sendMessage(textHandler.obtainMessage());
-
                         cnt = cnt + 1;
+                        recordProgressPercent = (int)(((float)cnt / (float)rgbData.getNUMBEROFFRAME()) * (float)100);
+                        recordProgressHandler.sendMessage(recordProgressHandler.obtainMessage());
+
                         if(cnt==rgbData.getNUMBEROFFRAME()) {
                             isBodyTracking = 0;
                             break;
@@ -285,12 +324,10 @@ public class RecordActivity extends AppCompatActivity {
                         textHandler.sendMessage(textHandler.obtainMessage());
                         TimeUnit.MILLISECONDS.sleep(1000);
                         isBodyTracking = 2;
-                        start = System.currentTimeMillis();
+                        feedbackStr = "녹화 중";
+                        textHandler.sendMessage(textHandler.obtainMessage());
                     }
                 }
-
-                long end = System.currentTimeMillis();
-                efc.getOut().println("실행 시간 : " + ( end - start )/1000.0);
 
                 bodyStream.stop();
                 colorStream.stop();
@@ -299,6 +336,9 @@ public class RecordActivity extends AppCompatActivity {
                 feedbackStr = "파일 저장 중";
                 textHandler.sendMessage(textHandler.obtainMessage());
                 rgbData.printRGBData(efc.getRgbout(), efc.getOut());
+
+                feedbackStr = "동영상 인코딩 중";
+                textHandler.sendMessage(textHandler.obtainMessage());
 
                 rgbData.makeVideo();
 

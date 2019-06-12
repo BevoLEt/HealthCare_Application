@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import android.graphics.Bitmap;
@@ -51,9 +53,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 
 
-
-
-
 public class SolutionActivity extends AppCompatActivity {
 
     private TextView exercise_info;
@@ -62,6 +61,8 @@ public class SolutionActivity extends AppCompatActivity {
     private static final String TAG="ContentListActivity";
     private ArrayList<String> contents=new ArrayList<>();
     static ArrayAdapter exercise_adapter;
+
+    public static AppCompatActivity activity;
     public ArrayList<String> exercise_info_list=new ArrayList<>();
     public ListView listView;
     private TextView list_item;
@@ -83,11 +84,12 @@ public class SolutionActivity extends AppCompatActivity {
 
     private AstraAndroidContext aac;
 
+    private ProgressBar solutionProgressbar;
+
     static {
         System.loadLibrary("native-lib");
     }
     public native String stringFromJNI();
-
 
     private String path= Environment.getExternalStorageDirectory().getPath();
     private String category;
@@ -101,12 +103,25 @@ public class SolutionActivity extends AppCompatActivity {
 
     private Button back;
     private Button btn_convert_to_admin_list;
+
+    private View decorView;
+    private int uiOption;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solution);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        activity=SolutionActivity.this;
+        decorView = getWindow().getDecorView();
+        uiOption = getWindow().getDecorView().getSystemUiVisibility();
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility( uiOption );
 
         Intent intent=getIntent();
         category=intent.getStringExtra("category");
@@ -128,6 +143,8 @@ public class SolutionActivity extends AppCompatActivity {
         videoData = new RGBData();
         bodyData = new BodyData(videoData.getNUMBEROFFRAME());
         efc = new ExerFileController();
+
+        solutionProgressbar = (ProgressBar)findViewById(R.id.solutionProgressbar);
 
         exericse_title = (TextView) findViewById(R.id.view_exercise_title_solution);
         exericse_title.setText(exercise_name);
@@ -176,6 +193,7 @@ public class SolutionActivity extends AppCompatActivity {
                 new View.OnClickListener(){
                     public void onClick(View v){
                         onBackPressed();
+                        finish();
                     }
                 }
         );
@@ -190,6 +208,7 @@ public class SolutionActivity extends AppCompatActivity {
                         /*인텐트 생성 후 명시적 다음 액티비티 호출*/
                         Intent intentToAdminMain=new Intent(SolutionActivity.this, AdminMainActivity.class);
                         startActivity(intentToAdminMain);
+                        finish();
                     }
                 }
         );
@@ -208,6 +227,16 @@ public class SolutionActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        // super.onWindowFocusChanged(hasFocus);
+
+        if( hasFocus ) {
+            decorView.setSystemUiVisibility( uiOption );
+        }
+    }
+
 
     public void putInfo(){
         Intent intentToPopup=new Intent(getApplicationContext(), PopupSolutionActivity.class);
@@ -220,6 +249,7 @@ public class SolutionActivity extends AppCompatActivity {
         intentToPopup.putExtra("body_title",exercise_info_list.get(6));
         intentToPopup.putExtra("rgb_title",exercise_info_list.get(7));
         startActivity(intentToPopup);
+        //finish();
     }
 
     @Override
@@ -263,6 +293,14 @@ public class SolutionActivity extends AppCompatActivity {
         }
     };
 
+    /* 프로그래스바 핸들러 */
+    private int solutionProgressPercent;
+    final Handler solutionProgressHandler = new Handler(){
+        public void handleMessage(Message msg){
+            solutionProgressbar.setProgress(solutionProgressPercent);
+        }
+    };
+
     /* 실제 구동 소스 코드 */
     private class UpdateRunnable implements Runnable {
         int cnt = 0;
@@ -283,6 +321,7 @@ public class SolutionActivity extends AppCompatActivity {
 
                     efc.openRGBFile_R();
                     videoData.readRGBData(efc.getRgbin(), efc.getOut());
+                    camData.setNUMBEROFFRAME(videoData.getNUMBEROFFRAME());
                     efc.closeRGBFile_R();
 
                     efc.openBodyFile_R();
@@ -324,15 +363,15 @@ public class SolutionActivity extends AppCompatActivity {
                             if(isBodyTracking == 0)  isBodyTracking = 1;
                             body = bodyFrame.getBodies().iterator().next();
                             if(isBodyTracking == 3) {
-                                nowScore = bodyData.bodyDataCompare(efc.getBodyReader(), body, cnt);
+                                nowScore = bodyData.bodyDataCompare(efc.getBodyReader(), body, cnt, efc.getOut());
                             }
                         }
 
-                        try {
-                            TimeUnit.MILLISECONDS.sleep(1);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        //try {
+                        //    TimeUnit.MILLISECONDS.sleep(1);
+                        //} catch (InterruptedException e) {
+                        //    e.printStackTrace();
+                        //}
                         ColorFrame colorFrame = ColorFrame.get(frame);
                         Bitmap tempBitmap = camData.rgbToArgb(colorFrame.getByteBuffer(), colorFrame.getWidth(), colorFrame.getHeight(), efc.getOut(), isBodyTracking, cnt);
                         camData.resetCanvas(camHolder);
@@ -355,10 +394,10 @@ public class SolutionActivity extends AppCompatActivity {
                         }
 
                         final_score += nowScore;
-                        feedbackStr = Integer.toString(cnt) + " " + Integer.toString(cnt) + " : " + Integer.toString(nowScore);
-                        textHandler.sendMessage(textHandler.obtainMessage());
-
                         cnt = cnt + 1;
+                        solutionProgressPercent = (int)(((float)cnt / (float)videoData.getNUMBEROFFRAME()) * (float)100);
+                        solutionProgressHandler.sendMessage(solutionProgressHandler.obtainMessage());
+
                         if (cnt == videoData.getNUMBEROFFRAME()) {
                             break;
                         }
@@ -368,10 +407,12 @@ public class SolutionActivity extends AppCompatActivity {
                         textHandler.sendMessage(textHandler.obtainMessage());
                         TimeUnit.MILLISECONDS.sleep(1000);
                         isBodyTracking = 3;
+                        feedbackStr = "자세 비교 중";
+                        textHandler.sendMessage(textHandler.obtainMessage());
                     }
                 }
 
-                final_score = final_score / cnt + 5;
+                final_score = final_score / cnt + 10;
                 if(final_score > 100)
                     final_score = 100;
                 feedbackStr = "Score : " + Integer.toString(final_score);
@@ -390,5 +431,4 @@ public class SolutionActivity extends AppCompatActivity {
             }
         }
     }
-
 }

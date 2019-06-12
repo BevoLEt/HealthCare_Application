@@ -113,7 +113,15 @@ public class BodyData {
         }
     }
     /* cosine 유사도 계산 */
-    private float cosineSimilarity(float[] vectorA, float[] vectorB) {
+    private float cosineSimilarity(float[] matrixA, float[] matrixB) {
+        float[] vectorA = new float[3];
+        float[] vectorB = new float[3];
+
+        for(int i = 0; i < 3; i++){
+            vectorA[i] = matrixA[i*3+0] + matrixA[i*3+1] + matrixA[i*3+2];
+            vectorB[i] = matrixB[i*3+0] + matrixB[i*3+1] + matrixB[i*3+2];
+        }
+
         float dotProduct = 0;
         float normA = 0;
         float normB = 0;
@@ -126,8 +134,8 @@ public class BodyData {
     }
 
     /* joint 데이터 비교 (cosine 유사도) */
-    private int jointOrientationCompare(Matrix3 userData, float[] trainerData){
-        final float CUTLINE = (float)0.75;
+    private int jointOrientationCompare(Matrix3 userData, float[] trainerData, int location, PrintWriter efc){
+        final float CUTLINE_STD = (float)0.85;
 
         float[] userDataVector = new float[ORIENTATIONLENTH];
         userDataVector[0] = userData.getAxisX().getX();
@@ -142,7 +150,9 @@ public class BodyData {
 
         float cs = cosineSimilarity(userDataVector, trainerData);
 
-        if (cs >= CUTLINE){
+        //efc.println(cs);
+
+        if (cs >= CUTLINE_STD){
             return 1;
         }
         else{
@@ -151,12 +161,12 @@ public class BodyData {
     }
 
     /* 자세 비교 */
-    private int bodyCompare(Body userData, float[][] trainerData){
-        final int[] OUTPOINT = {12, 15, 16, 17};  // 양 발, 양 손목은 자세 비교에서 제외
+    private int bodyCompare(Body userData, float[][] trainerData, PrintWriter efc){
+        final int[] OUTPOINT = {12, 15, 4, 7, 0};  // 양 발, 양 손, 머리는 자세 비교에서 제외
 
-        final int FIRSTCUTLINE = 17 - OUTPOINT.length;  // 전체 joint 중 양발, 양손목을 제외하고 2개의 joint까지 틀린 것을 허용
-        final int SECONDCUTLINE = 16 - OUTPOINT.length;  // 3개까지 허용
-        final int LASTCUTLINE = 15 - OUTPOINT.length;  // 4개까지 허용
+        final int FIRSTCUTLINE = SKELETONLENGTH - OUTPOINT.length;  // 전체 joint 중 양발, 양손목을 제외하고 2개의 joint까지 틀린 것을 허용
+        final int SECONDCUTLINE = SKELETONLENGTH - 1 - OUTPOINT.length;  // 3개까지 허용
+        final int LASTCUTLINE = SKELETONLENGTH - 2 - OUTPOINT.length;  // 4개까지 허용
 
         int sum = 0;  // 총 몇 개의 joint가 일치하였나를 저장
         for(int i = 0; i < userData.getJoints().length; i++){
@@ -171,13 +181,17 @@ public class BodyData {
                 continue;
             }
             if(userData.getJoints()[i].getStatus() == JointStatus.TRACKED && trainerData[i][0] != -1){
-                sum = sum + jointOrientationCompare(userData.getJoints()[i].getOrientation(), trainerData[i]);
+                sum = sum + jointOrientationCompare(userData.getJoints()[i].getOrientation(), trainerData[i], i, efc);
             }
             else{
                 sum = sum + 1;
             }
         }
 
+        //efc.println(sum);
+        //efc.println("--------------------------");
+
+        //return sum;
         if(sum >= FIRSTCUTLINE){
             return 100;
         }
@@ -193,11 +207,11 @@ public class BodyData {
     }
 
     /* 자세 데이터 읽기 및 비교 */
-    public int bodyDataCompare(BufferedReader bufReader, Body body, int cnt) {
+    public int bodyDataCompare(BufferedReader bufReader, Body body, int cnt, PrintWriter efc) {
         int score = 0;
 
         for(int i = cnt; i < FRAME && i < cnt + COMPAREFRAMELENGTH; i++){
-            int temp = bodyCompare(body, bodyDataArr[i]);
+            int temp = bodyCompare(body, bodyDataArr[i], efc);
             if(score < temp){
                 score = temp;
             }

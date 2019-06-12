@@ -53,6 +53,7 @@ public class ContentListAdapter extends RecyclerView.Adapter<ContentListAdapter.
         //버튼리스너 장착
         btn_content_item.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                ContentListActivity.help_exercise_desc.setVisibility(View.VISIBLE);
                 /*text styling when clicked*/
                 int firstVisibleItemPosition = ContentListActivity.layoutManager.findFirstVisibleItemPosition();
                 int lastVisibleItemPosition = ContentListActivity.layoutManager.findLastVisibleItemPosition();

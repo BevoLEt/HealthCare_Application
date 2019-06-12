@@ -4,12 +4,15 @@
     package="com.coders.healthcareapplication">
     <!-- network useage permission -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission
         android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
+
 
     <application
         android:allowBackup="true"
@@ -32,6 +35,7 @@
             android:name=".view.PopupContentActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- @style/mytheme -->
         <activity android:name=".view.TutorialActivity" />
+
         <activity android:name=".view.ContentListActivity" />
         <activity android:name=".view.DbInfoActivity" />
         <activity android:name=".view.AdminMainActivity" />

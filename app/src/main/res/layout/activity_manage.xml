@@ -97,7 +97,7 @@
         android:divider="#00000000"
         android:dividerHeight="25dp"
         android:fastScrollEnabled="true"
-        android:listSelector="@mipmap/btn_bar_list_solu_clicked"
+        android:listSelector="@mipmap/btn_bar_list_click"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/btn_convert_to_admin_manage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,4 +121,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView_manage"
         app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/manual_manage_video_add"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="@string/manage_video_add"
+        android:textColor="@android:color/background_light"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_manage"
+        app:layout_constraintEnd_toStartOf="@+id/btn_add_video"
+        app:layout_constraintHorizontal_bias="0.717"
+        app:layout_constraintStart_toStartOf="@+id/line_title"
+        app:layout_constraintTop_toBottomOf="@+id/view_admin_manage"
+        app:layout_constraintVertical_bias="0.714" />
+
+    <TextView
+        android:id="@+id/manual_manage_category"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="@string/manage_help_category"
+        android:textColor="@android:color/background_light"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView_manage"
+        app:layout_constraintEnd_toStartOf="@+id/btn_add_video"
+        app:layout_constraintHorizontal_bias="0.201"
+        app:layout_constraintStart_toStartOf="@+id/line_title"
+        app:layout_constraintTop_toBottomOf="@+id/view_admin_manage"
+        app:layout_constraintVertical_bias="0.891" />
+
+    <TextView
+        android:id="@+id/manual_manage_video_delete"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="@string/manage_video_delete"
+        android:textColor="@android:color/background_light"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/manage_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.694"
+        app:layout_constraintStart_toEndOf="@+id/recyclerView_manage"
+        app:layout_constraintTop_toBottomOf="@+id/view_admin_manage"
+        app:layout_constraintVertical_bias="0.506" />
 </android.support.constraint.ConstraintLayout>

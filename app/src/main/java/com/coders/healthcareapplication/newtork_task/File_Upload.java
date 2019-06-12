@@ -41,8 +41,8 @@ public class File_Upload extends AsyncTask<Void, Void, String> {
         Log.i(s,"check String in PostExecute");
         Log.i(s,"check String in File upload Execute");
         //file delete
-        FileDelete temp_file_delete=new FileDelete(path);
-        temp_file_delete.tempfile_delete(file_title+"_"+type);
+        //FileDelete temp_file_delete=new FileDelete(path);
+        //temp_file_delete.tempfile_delete(file_title+"_"+type);
     }
 
 }

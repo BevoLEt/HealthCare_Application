@@ -42,19 +42,17 @@
         app:layout_constraintTop_toBottomOf="@+id/view_admin_mode_record" />
 
 
-
-        <SurfaceView
-            android:id="@+id/admin_cam"
-            android:layout_width="380dp"
-            android:layout_height="201dp"
-            android:layout_gravity="center"
-            app:srcCompat="@color/colorPrimary"
+    <SurfaceView
+        android:id="@+id/admin_cam"
+        android:layout_width="380dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_back_record"
-            app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back_record"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@color/colorPrimary" />
 
 
     <TextView
@@ -68,8 +66,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_cam"
-        app:layout_constraintVertical_bias="0.118" />
+        app:layout_constraintTop_toBottomOf="@+id/recordProgressbar"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_record_start"
@@ -80,11 +78,11 @@
         android:gravity="center"
         android:text="@string/btn_record"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_convert_to_normal_record"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/admin_feedback"
-        app:layout_constraintVertical_bias="0.526" />
+        app:layout_constraintVertical_bias="0.258" />
 
     <Button
         android:id="@+id/btn_convert_to_normal_record"
@@ -99,4 +97,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/recordProgressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="380dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_convert_to_normal_record"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admin_cam"
+        app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>

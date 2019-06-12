@@ -32,31 +32,33 @@ public class RGBData {
     /* RGB 카메라 출력 */
     private final static int CAMHEIGHT = 480;
     private final static int CAMWIDTH = 640;
-    private final static int COLORTHREAD = 10;
+    private final static int SKELETONLENGTH = 19;
+    private final static int FRAMEPERSEC = 6;
+
     private ByteBuffer cam_buf;
-    private int color_cnt;
-    private int color_index;
-    private byte[] color_buf;
-    private int[] video_buf;
     private Canvas rgbCanvas;
     private Vector2D[][] rgbSkeletonData;
     private int nowFrame;
 
-    private final static int NUMBEROFFRAME = 55;
-    private final static int SKELETONLENGTH = 19;
+    private int NUMBEROFFRAME;
     private byte[][] allFrameData;
 
-    public static int getNUMBEROFFRAME() {
+    public int getNUMBEROFFRAME() {
         return NUMBEROFFRAME;
     }
 
-    public RGBData(){
-        color_index = 0;
-        color_buf = new byte[CAMWIDTH * CAMHEIGHT * 2];
-        video_buf = new int[CAMWIDTH * CAMHEIGHT];
+    public void setNUMBEROFFRAME(int nf) {
+        NUMBEROFFRAME = nf * FRAMEPERSEC;
         allFrameData = new byte[NUMBEROFFRAME + 1][];
-
         rgbSkeletonData = new Vector2D[NUMBEROFFRAME][SKELETONLENGTH];
+    }
+
+    public RGBData(){
+        setNUMBEROFFRAME(30);
+    }
+
+    public RGBData(int nf){
+        setNUMBEROFFRAME(nf);
     }
 
     /* 영상 출력을 위한 bitmap 생성 */
@@ -130,6 +132,8 @@ public class RGBData {
 
     /* Bitmap 데이터 쓰기 */
     public void printRGBData(FileOutputStream rgbout, PrintWriter efc) throws IOException {
+        rgbout.write(intToByte(NUMBEROFFRAME));
+
         for(int i = 0; i < NUMBEROFFRAME; i++){
             int flen = allFrameData[i].length;
             byte flenBytes[] = intToByte(flen);
@@ -146,6 +150,10 @@ public class RGBData {
     public void readRGBData(FileInputStream rgbin, PrintWriter efc) throws IOException {
         byte[] flenBytes = new byte[4];
         int flen;
+
+        rgbin.read(flenBytes, 0, 4);
+        setNUMBEROFFRAME(byteToInt(flenBytes) / FRAMEPERSEC);
+
         for(int i = 0; i < NUMBEROFFRAME; i++){
             rgbin.read(flenBytes, 0, 4);
             flen = byteToInt(flenBytes);
@@ -188,7 +196,7 @@ public class RGBData {
         Paint dotColor = new Paint();
         dotColor.setColor(Color.BLUE);
 
-        rgbCanvas.drawCircle(coor.getX(), coor.getY(), 10, dotColor);
+        rgbCanvas.drawCircle(coor.getX(), coor.getY(), 5, dotColor);
     }
 
     /* 캔버스에 스켈레톤 선 그리기 */
@@ -199,7 +207,7 @@ public class RGBData {
 
         Paint lineAtt = new Paint();
         lineAtt.setColor(Color.GREEN);
-        lineAtt.setStrokeWidth(5);
+        lineAtt.setStrokeWidth(2);
         rgbCanvas.drawLine(coor1.getX(), coor1.getY(), coor2.getX(), coor2.getY(), lineAtt);
     }
 
@@ -208,7 +216,7 @@ public class RGBData {
         int[][] lineList = {{0, 18}, {18, 1}, {1, 2}, {2, 3}, {3, 16}, {1, 5}, {5, 6}, {6, 17}, {1, 8}, {8, 9}, {9, 10}, {10, 11}, {11, 12}, {9, 13}, {13, 14}, {14, 15},  {4, 16}, {7, 17}, {6, 17}};
         rgbCanvas.drawBitmap(bitmap, 0, 0, null);
 
-        if( body !=null){
+        if(mode == 2 && body !=null){
             for(int i = 0; i < SKELETONLENGTH; i++){
                 if(i >= body.getJoints().length){
                     rgbSkeletonData[cnt][i] = new Vector2D(0, 0);
@@ -217,25 +225,16 @@ public class RGBData {
 
                 if(body.getJoints()[i].getStatus() == JointStatus.TRACKED){
                     Vector2D tempVector2D = arrangeCoor(body.getJoints()[i].getDepthPosition());
-                    if(mode == 2) {
-                        rgbSkeletonData[cnt][i] = tempVector2D;
-                    }
+                    rgbSkeletonData[cnt][i] = tempVector2D;
                 }
                 else{
-                    if(mode == 2) {
-                        rgbSkeletonData[cnt][i] = new Vector2D(0, 0);
-                    }
+                    rgbSkeletonData[cnt][i] = new Vector2D(0, 0);
                 }
             }
         }
-        else{
-            for(int i = 0; i < SKELETONLENGTH; i++){
-                rgbSkeletonData[cnt][i] = new Vector2D(0, 0);
-            }
-        }
+
         if(mode >= 2){
             for(int i = 0; i < lineList.length; i++){
-                efc.println(i);
                 try {
                     drawSkeletonLine(rgbSkeletonData[cnt][lineList[i][0]], rgbSkeletonData[cnt][lineList[i][1]], efc);
                 }
